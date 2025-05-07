@@ -1,0 +1,14 @@
+.admin-layout {
+  :global {
+    display: flex;
+    min-height: 100vh;
+    position: relative;
+    [data-theme="dark"] & {
+      background-color: #17191a;
+    }
+
+    .AdminDashboard {
+      background-color: var(--bg-light);
+    }
+  }
+}
