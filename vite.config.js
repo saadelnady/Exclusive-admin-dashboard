@@ -15,13 +15,14 @@ export default defineConfig({
     alias: {
       "@": path.resolve(__dirname, "./src"),
       "@api": path.resolve(__dirname, "./src/api"),
+      "@styles": path.resolve(__dirname, "./src/styles"),
     },
   },
 
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: `@import "@/variables.scss";`,
+        additionalData: `@import "@styles/variables.scss";`,
       },
     },
   },

@@ -213,6 +213,11 @@ const WISHLIST_ACTIONS_TYPES = {
   DELETE_PRODUCT_FROM_WISHLIST_SUCCESS: "DELETE_PRODUCT_FROM_WISHLIST_SUCCESS",
   DELETE_PRODUCT_FROM_WISHLIST_FAIL: "DELETE_PRODUCT_FROM_WISHLIST_FAIL",
 };
+// ======================================================
+
+const SET_LOCALE = "SET_LOCALE";
+
+// ======================================================
 
 export {
   USER_ACTIONS_TYPES,
@@ -229,4 +234,5 @@ export {
   COUPONS_ACTIONS_TYPES,
   CART_ACTIONS_TYPES,
   WISHLIST_ACTIONS_TYPES,
+  SET_LOCALE,
 };

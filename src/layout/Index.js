@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  fetchUserProfile,
-  fetchUsers,
-} from "../store/actions/user/userActions.js";
+  fetchAdminProfile,
+  fetchAdmins,
+} from "../store/actions/admin/adminActions.js";
 import { Route, Routes } from "react-router-dom";
 
 import AdminSideBar from "./sidebar";
@@ -28,8 +28,8 @@ const Admin = () => {
   // =================================================================================
   useEffect(() => {
     if (token) {
-      dispatch(fetchUserProfile());
-      dispatch(fetchUsers());
+      dispatch(fetchAdminProfile());
+      dispatch(fetchAdmins());
       dispatch(fetchSellers());
     }
   }, [dispatch]);

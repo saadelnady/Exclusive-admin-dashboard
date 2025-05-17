@@ -3,7 +3,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { BsCart3 } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
 import { serverUrl } from "../../API/API";
-import FlashSaleCounter from "../User/Shared/FlashSaleCounter/FlashSaleCounter";
+import FlashSaleCounter from "../Admin/Shared/FlashSaleCounter/FlashSaleCounter";
 import icStar from "../../assets/images/pngs/ic_stars.png";
 import "./styles/Card.css";
 

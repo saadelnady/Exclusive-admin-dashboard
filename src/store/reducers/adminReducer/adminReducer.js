@@ -7,12 +7,12 @@ const initialState = {
   isLoggedIn: false,
   isLoading: false,
   error: null,
-  user: {},
-  users: [],
+  admin: {},
+  admins: [],
   message: "",
 };
 
-const userReducer = (state = initialState, action) => {
+const adminReducer = (state = initialState, action) => {
   switch (action.type) {
     case USER_ACTIONS_TYPES.GET_USER:
       return { ...state, isLoading: true };
@@ -22,7 +22,7 @@ const userReducer = (state = initialState, action) => {
         ...state,
         isLoading: false,
         isLoggedIn: true,
-        user: action.payLoad,
+        admin: action.payLoad,
         error: null,
       };
 
@@ -43,7 +43,7 @@ const userReducer = (state = initialState, action) => {
         ...state,
         isLoading: false,
         isLoggedIn: true,
-        user: action?.payLoad,
+        admin: action?.payLoad,
         error: null,
       };
 
@@ -86,8 +86,8 @@ const userReducer = (state = initialState, action) => {
         ...state,
         isLoggedIn: false,
         isLoading: false,
-        user: {},
-        users: [],
+        admin: {},
+        admins: [],
         error: null,
       };
     case USER_ACTIONS_TYPES.POST_USER_LOGOUT_FAIL:
@@ -126,7 +126,7 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        users: action.payLoad,
+        admins: action.payLoad,
         error: null,
       };
 
@@ -144,7 +144,7 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        user: action?.payLoad?.data?.user,
+        admin: action?.payLoad?.data?.admin,
         message: action?.payLoad?.message,
         error: null,
       };
@@ -163,4 +163,4 @@ const userReducer = (state = initialState, action) => {
   }
 };
 
-export { userReducer };
+export { adminReducer };

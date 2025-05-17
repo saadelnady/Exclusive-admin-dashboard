@@ -4,12 +4,12 @@ import { useSelector } from "react-redux";
 import ProfileDetails from "../../Shared/Profile/ProfileDetails";
 
 const Index = () => {
-  const { user } = useSelector((state) => state.userReducer);
+  const { admin } = useSelector((state) => state.adminReducer);
   const { seller } = useSelector((state) => state.sellerReducer);
   return (
     <div className="container profile ">
-      <ProfileHeader user={user} seller={seller} />
-      <ProfileDetails user={user} seller={seller} />
+      <ProfileHeader admin={admin} seller={seller} />
+      <ProfileDetails admin={admin} seller={seller} />
     </div>
   );
 };

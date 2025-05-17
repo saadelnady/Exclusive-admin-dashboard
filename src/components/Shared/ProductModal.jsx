@@ -13,14 +13,14 @@ import { addToCart } from "../../store/actions/cart/cartActions";
 import { showToast } from "../../helpers/toast_helper";
 import Counter from "./Counter";
 import Loading from "./Loading";
-import Colors from "../User/Product/Colors";
-import Size from "../User/Product/Size";
+import Colors from "../Admin/Product/Colors";
+import Size from "../Admin/Product/Size";
 import "./styles/ProductModal.css";
 import { addToWishList } from "../../store/actions/wishList/wishListActions";
 
 const ProductModal = ({ productId, handleActiveModal }) => {
   const { product, isLoading } = useSelector((state) => state.productReducer);
-  const { user, isLoggedIn } = useSelector((state) => state.userReducer);
+  const { admin, isLoggedIn } = useSelector((state) => state.adminReducer);
   const [activeColor, setActiveColor] = useState(null);
   const [activeSize, setActiveSize] = useState(null);
   const [counter, setCounter] = useState(1);
@@ -61,7 +61,7 @@ const ProductModal = ({ productId, handleActiveModal }) => {
       showToast(toast, "you have reached the stock count", "error");
     } else {
       const data = {
-        user: user?._id,
+        admin: admin?._id,
         productId,
         optionId: targetOption?._id,
         newSelectedCount: counter,
@@ -77,7 +77,7 @@ const ProductModal = ({ productId, handleActiveModal }) => {
       }, 2000);
     } else {
       const data = {
-        userId: user?._id,
+        adminId: admin?._id,
         productId,
         optionId: targetOption?._id,
       };

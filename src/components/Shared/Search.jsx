@@ -2,7 +2,7 @@ import { useState } from "react";
 // import { CiSearch } from "react-icons/ci";
 
 import "./styles/Search.css";
-// import SearchResults from "../User/Shared/Header/SearchResults";
+// import SearchResults from "../Admin/Shared/Header/SearchResults";
 import { useSelector } from "react-redux";
 
 const Search = ({ action }) => {

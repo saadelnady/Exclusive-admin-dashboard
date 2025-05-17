@@ -4,13 +4,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { useState } from "react";
 import { FaXmark } from "react-icons/fa6";
-import { userLogout } from "../../store/actions/user/userActions";
+import { adminLogout } from "../../store/actions/admin/adminActions";
 
 import { adminLinks } from "./data";
 import styles from "./styles/styles.module.scss";
+import { FormattedMessage } from "react-intl";
 
 const AdminSideBar = ({ isActive, handleSidebarActivation }) => {
-  const { user } = useSelector((state) => state.userReducer);
+  const { admin } = useSelector((state) => state.adminReducer);
   const [toggleStates, setToggleStates] = useState({
     isCategoriesActive: false,
     isSubCategoriesActive: false,
@@ -28,14 +29,14 @@ const AdminSideBar = ({ isActive, handleSidebarActivation }) => {
 
   const handleLogOut = () => {
     const payLoad = { toast, navigate, role: "ADMIN" };
-    dispatch(userLogout(payLoad));
+    dispatch(adminLogout(payLoad));
   };
   return (
     <div
       className={` ${styles["Admin-SideBar"]} px-3 ${isActive ? "active" : ""}`}
     >
       <div className="d-flex justify-content-between align-items-center px-1">
-        <h2 className="text-light py-5 px-3">{user.firstName}.</h2>
+        <h2 className="text-light py-5 px-3">{admin.firstName}.</h2>
         <FaXmark
           onClick={() => {
             handleSidebarActivation();
@@ -57,7 +58,7 @@ const AdminSideBar = ({ isActive, handleSidebarActivation }) => {
             >
               <NavLink to={`${link.to}`} className="d-flex align-items-center">
                 {link.icon}
-                {link.title.replace(/-/g, " ")}
+                <FormattedMessage id={link.title} />
               </NavLink>
 
               {link.children && (
@@ -79,7 +80,7 @@ const AdminSideBar = ({ isActive, handleSidebarActivation }) => {
                         to={`${child.to}`}
                         className="btn btn-danger d-flex"
                       >
-                        {child.title.replace(/-/g, " ")}
+                        <FormattedMessage id={child.title} />
                       </NavLink>
                     </li>
                   ))}
@@ -90,7 +91,7 @@ const AdminSideBar = ({ isActive, handleSidebarActivation }) => {
         </ul>
 
         <button className="btn btn-danger" onClick={handleLogOut}>
-          Log out
+          <FormattedMessage id="logout" />
         </button>
       </div>
     </div>

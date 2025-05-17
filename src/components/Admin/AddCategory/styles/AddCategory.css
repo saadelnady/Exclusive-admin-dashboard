@@ -66,8 +66,8 @@
   border: 2px solid var(--red-color);
 }
 .addsubcategory select option {
-  color: red;
+  color:$primary-color
 }
 .addsubcategory select option:hover {
-  background-color: red;
+  background-color:$primary-color
 }

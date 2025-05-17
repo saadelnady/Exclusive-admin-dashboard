@@ -2,53 +2,51 @@ import { getData, postData, putData } from "../../../API/API";
 import { decodeToken } from "../../../helpers/decodeToken";
 import { showToast } from "../../../helpers/toast_helper";
 
-import * as actionCreators from "./userActionsCreators";
+import * as actionCreators from "./adminActionsCreators";
 // ========================================================================================
 
-export const fetchUserProfile = () => {
+export const fetchAdminProfile = () => {
   return async (dispatch) => {
-    dispatch(actionCreators.getUserProfile());
+    dispatch(actionCreators.getAdminProfile());
     try {
-      const response = await getData(`/api/users/getUserProfile`);
-      dispatch(actionCreators.getUserProfileSuccess(response?.data?.user));
+      const response = await getData(`/api/admins/getAdminProfile`);
+      dispatch(actionCreators.getAdminProfileSuccess(response?.data?.admin));
     } catch (error) {
-      dispatch(actionCreators.getUserProfileFail(error));
+      dispatch(actionCreators.getAdminProfileFail(error));
     }
   };
 };
 // ========================================================================================
 
-export const userLogin = ({ values, toast, navigate }) => {
+export const adminLogin = ({ values, toast, navigate, locale }) => {
   return async (dispatch) => {
-    dispatch(actionCreators.postUserLogin(values));
+    dispatch(actionCreators.postAdminLogin(values));
     try {
-      const response = await postData(`/api/users/login`, values);
+      const response = await postData(`/api/admin/login`, values);
+      console.log("values", values);
+      console.log("locale", locale);
 
       localStorage.setItem("TOKEN", response?.data?.token);
-      dispatch(actionCreators.postUserLoginSuccess(response?.data));
-      showToast(toast, response?.message, "success");
-      dispatch(fetchUserProfile());
+      dispatch(actionCreators.postAdminLoginSuccess(response?.data));
+      showToast(toast, response?.message?.[locale], "success");
+      dispatch(fetchAdminProfile());
       setTimeout(() => {
-        if (decodeToken().role === "ADMIN") {
-          navigate("/");
-        } else {
-          navigate("/");
-        }
+        navigate("/");
       }, 2500);
     } catch (error) {
-      dispatch(actionCreators.postUserLoginFail(error));
-      showToast(toast, error?.response?.data?.message, "error");
+      dispatch(actionCreators.postAdminLoginFail(error));
+      showToast(toast, error?.response?.data?.message?.[locale], "error");
     }
   };
 };
 // ========================================================================================
 
-export const userLogout = ({ toast, navigate, role }) => {
+export const adminLogout = ({ toast, navigate, role }) => {
   return async (dispatch) => {
-    dispatch(actionCreators.postUserLogout());
+    dispatch(actionCreators.postAdminLogout());
 
     try {
-      dispatch(actionCreators.postUserLogoutSuccess());
+      dispatch(actionCreators.postAdminLogoutSuccess());
       localStorage.removeItem("TOKEN");
       showToast(toast, "You have logged out successfully", "success");
 
@@ -61,21 +59,21 @@ export const userLogout = ({ toast, navigate, role }) => {
         }
       }, 2500);
     } catch (error) {
-      dispatch(actionCreators.postUserLogoutFail());
+      dispatch(actionCreators.postAdminLogoutFail());
       showToast(toast, "Something wrong when logout", "error");
     }
   };
 };
 // ========================================================================================
-export const userRegister = ({ values, toast, navigate }) => {
+export const adminRegister = ({ values, toast, navigate }) => {
   return async (dispatch) => {
-    dispatch(actionCreators.postUserRegister(values));
+    dispatch(actionCreators.postAdminRegister(values));
 
     try {
-      const response = await postData("/api/users/register", values);
+      const response = await postData("/api/admins/register", values);
 
       // localStorage.setItem("TOKEN", response?.data?.token);
-      dispatch(actionCreators.postUserRegisterSuccess(response));
+      dispatch(actionCreators.postAdminRegisterSuccess(response));
       showToast(toast, response?.message, "success");
       navigate("/login");
 
@@ -84,35 +82,35 @@ export const userRegister = ({ values, toast, navigate }) => {
       //   }
       // });
     } catch (error) {
-      dispatch(actionCreators.postUserRegisterFail(error));
+      dispatch(actionCreators.postAdminRegisterFail(error));
       showToast(toast, error?.response?.data?.message, "error");
     }
   };
 };
 // ========================================================================================
-export const editUserProfile = ({ userId, values, toast }) => {
+export const editAdminProfile = ({ adminId, values, toast }) => {
   return async (dispatch) => {
-    dispatch(actionCreators.putUserProfile());
+    dispatch(actionCreators.putAdminProfile());
     try {
-      const response = await putData(`/api/users/${userId}`, values);
-      dispatch(actionCreators.putUserProfileSuccess(response));
+      const response = await putData(`/api/admins/${adminId}`, values);
+      dispatch(actionCreators.putAdminProfileSuccess(response));
       showToast(toast, response?.message, "success");
     } catch (error) {
-      dispatch(actionCreators.putUserProfileFail(error));
+      dispatch(actionCreators.putAdminProfileFail(error));
       showToast(toast, error?.response?.data?.message, "error");
     }
   };
 };
 // ========================================================================================
 
-export const fetchUsers = () => {
+export const fetchAdmins = () => {
   return async (dispatch) => {
-    dispatch(actionCreators.getUsers());
+    dispatch(actionCreators.getAdmins());
     try {
-      const data = await getData(`/api/users`);
-      dispatch(actionCreators.getUsersSuccess(data.data.users));
+      const data = await getData(`/api/admins`);
+      dispatch(actionCreators.getAdminsSuccess(data.data.admins));
     } catch (error) {
-      dispatch(actionCreators.getUsersFail(error));
+      dispatch(actionCreators.getAdminsFail(error));
     }
   };
 };

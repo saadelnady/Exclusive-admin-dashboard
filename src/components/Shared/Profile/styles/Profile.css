@@ -42,7 +42,7 @@ aside ul li a {
   cursor: pointer;
 }
 
-.profile .profile-img-container .user-img {
+.profile .profile-img-container .admin-img {
   width: 100%;
   height: 100%;
   object-fit: cover;

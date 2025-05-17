@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { useEffect, useState } from "react";
 import Loading from "./Loading";
-import ProductsSlider from "../User/Shared/ProductsSlider/ProductsSlider";
+import ProductsSlider from "../Admin/Shared/ProductsSlider/ProductsSlider";
 import SpecialHeading from "./SpecialHeading";
 
 const RelatedItems = ({ categoryId, subCategoryId }) => {

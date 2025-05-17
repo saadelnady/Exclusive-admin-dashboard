@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 const ProfileHeader = () => {
-  const { user } = useSelector((state) => state.userReducer);
+  const { admin } = useSelector((state) => state.adminReducer);
   const { seller } = useSelector((state) => state.sellerReducer);
 
   return (
@@ -19,7 +19,7 @@ const ProfileHeader = () => {
       <div className="wellcome fs-5">
         wellcome !
         <span className="fw-bold fs-4 ms-3">
-          {user.firstName || seller.firstName}
+          {admin.firstName || seller.firstName}
         </span>
       </div>
     </div>

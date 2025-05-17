@@ -1,0 +1,19 @@
+{
+  "dashboard": "Dashboard",
+  "profile": "Profile",
+  "products": "Products",
+  "pending-products": "Pending Products",
+  "blocked-products": "Blocked Products",
+  "categories": "Categories",
+  "add-category": "Add Category",
+  "sub-categories": "Sub-Categories",
+  "add-sub-category": "Add Sub-Category",
+  "logout": "Logout",
+  "wellcome": "Welcome Back",
+  "login-text": "Login",
+  "email": "Email",
+  "password": "Password",
+  "enter": "login",
+  "required": "This field is required",
+  "invalid-email": "Invalid email address"
+}

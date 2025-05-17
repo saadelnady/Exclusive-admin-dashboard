@@ -3,19 +3,19 @@ import { USERS_ACTIONS_TYPES, USER_ACTIONS_TYPES } from "../actionTypes";
 // USER
 // ===========================================================================
 
-export const getUser = (payLoad) => {
+export const getAdmin = (payLoad) => {
   return {
     type: USER_ACTIONS_TYPES.GET_USER,
     payLoad,
   };
 };
-export const getUserSuccess = (payLoad) => {
+export const getAdminSuccess = (payLoad) => {
   return {
     type: USER_ACTIONS_TYPES.GET_USER_SUCCESS,
     payLoad,
   };
 };
-export const getUserFail = (payLoad) => {
+export const getAdminFail = (payLoad) => {
   return {
     type: USER_ACTIONS_TYPES.GET_USER_FAIL,
     payLoad,
@@ -23,19 +23,19 @@ export const getUserFail = (payLoad) => {
 };
 // ===========================================================================
 
-export const getUserProfile = (payLoad) => {
+export const getAdminProfile = (payLoad) => {
   return {
     type: USER_ACTIONS_TYPES.GET_USER_PROFILE,
     payLoad,
   };
 };
-export const getUserProfileSuccess = (payLoad) => {
+export const getAdminProfileSuccess = (payLoad) => {
   return {
     type: USER_ACTIONS_TYPES.GET_USER_PROFILE_SUCCESS,
     payLoad,
   };
 };
-export const getUserProfileFail = (payLoad) => {
+export const getAdminProfileFail = (payLoad) => {
   return {
     type: USER_ACTIONS_TYPES.GET_USER_PROFILE_FAIL,
     payLoad,
@@ -43,19 +43,19 @@ export const getUserProfileFail = (payLoad) => {
 };
 
 // ===========================================================================
-export const postUserLogin = (payLoad) => {
+export const postAdminLogin = (payLoad) => {
   return {
     type: USER_ACTIONS_TYPES.POST_USER_LOGIN,
     payLoad,
   };
 };
-export const postUserLoginSuccess = (payLoad) => {
+export const postAdminLoginSuccess = (payLoad) => {
   return {
     type: USER_ACTIONS_TYPES.POST_USER_LOGIN_SUCCESS,
     payLoad,
   };
 };
-export const postUserLoginFail = (payLoad) => {
+export const postAdminLoginFail = (payLoad) => {
   return {
     type: USER_ACTIONS_TYPES.POST_USER_LOGIN_FAIL,
     payLoad,
@@ -63,19 +63,19 @@ export const postUserLoginFail = (payLoad) => {
 };
 // ===========================================================================
 
-export const postUserLogout = (payLoad) => {
+export const postAdminLogout = (payLoad) => {
   return {
     type: USER_ACTIONS_TYPES.POST_USER_LOGOUT,
     payLoad,
   };
 };
-export const postUserLogoutSuccess = (payLoad) => {
+export const postAdminLogoutSuccess = (payLoad) => {
   return {
     type: USER_ACTIONS_TYPES.POST_USER_LOGOUT_SUCCESS,
     payLoad,
   };
 };
-export const postUserLogoutFail = (payLoad) => {
+export const postAdminLogoutFail = (payLoad) => {
   return {
     type: USER_ACTIONS_TYPES.POST_USER_LOGOUT_FAIL,
     payLoad,
@@ -83,38 +83,38 @@ export const postUserLogoutFail = (payLoad) => {
 };
 // ===========================================================================
 
-export const postUserRegister = (payLoad) => {
+export const postAdminRegister = (payLoad) => {
   return {
     type: USER_ACTIONS_TYPES.POST_USER_REGISTER,
     payLoad,
   };
 };
-export const postUserRegisterSuccess = (payLoad) => {
+export const postAdminRegisterSuccess = (payLoad) => {
   return {
     type: USER_ACTIONS_TYPES.POST_USER_REGISTER_SUCCESS,
     payLoad,
   };
 };
-export const postUserRegisterFail = (payLoad) => {
+export const postAdminRegisterFail = (payLoad) => {
   return {
     type: USER_ACTIONS_TYPES.POST_USER_REGISTER_FAIL,
     payLoad,
   };
 };
 // ===========================================================================
-export const putUserProfile = (payLoad) => {
+export const putAdminProfile = (payLoad) => {
   return {
     type: USER_ACTIONS_TYPES.PUT_USER_PROFILE,
     payLoad,
   };
 };
-export const putUserProfileSuccess = (payLoad) => {
+export const putAdminProfileSuccess = (payLoad) => {
   return {
     type: USER_ACTIONS_TYPES.PUT_USER_PROFILE_SUCCESS,
     payLoad,
   };
 };
-export const putUserProfileFail = (payLoad) => {
+export const putAdminProfileFail = (payLoad) => {
   return {
     type: USER_ACTIONS_TYPES.PUT_USER_PROFILE_FAIL,
     payLoad,
@@ -125,18 +125,18 @@ export const putUserProfileFail = (payLoad) => {
 // USERS
 // ===========================================================================
 // ===========================================================================
-export const getUsers = () => {
+export const getAdmins = () => {
   return {
     type: USERS_ACTIONS_TYPES.GET_USERS,
   };
 };
-export const getUsersSuccess = (payLoad) => {
+export const getAdminsSuccess = (payLoad) => {
   return {
     type: USERS_ACTIONS_TYPES.GET_USERS_SUCCESS,
     payLoad,
   };
 };
-export const getUsersFail = (payLoad) => {
+export const getAdminsFail = (payLoad) => {
   return {
     type: USERS_ACTIONS_TYPES.GET_USERS_FAIL,
     payLoad,

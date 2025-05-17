@@ -1,0 +1,19 @@
+{
+  "dashboard": "لوحة التحكم",
+  "profile": "الملف الشخصي",
+  "products": "المنتجات",
+  "pending-products": "المنتجات المعلقة",
+  "blocked-products": "المنتجات المحجوبة",
+  "categories": "الأقسام",
+  "add-category": "إضافة قسم",
+  "sub-categories": "الأقسام الفرعية",
+  "add-sub-category": "إضافة قسم فرعي",
+  "logout": "تسجيل الخروج",
+  "wellcome": "أهلا بعودتك",
+  "login-text": " تسجيل الدخول",
+  "email": "البريد الالكتروني",
+  "password": "كلمة المرور",
+  "enter": "دخول",
+  "required": "هذا الحقل مطلوب ادخاله",
+  "invalid-email": "البريد الالكتروني غير صالح"
+}

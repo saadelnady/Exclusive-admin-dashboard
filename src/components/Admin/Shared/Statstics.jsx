@@ -3,11 +3,11 @@ import { useSelector } from "react-redux";
 import { DashboardCard } from "./DashBoardCard";
 
 export const Statstics = (props) => {
-  const { users } = useSelector((state) => state.userReducer);
+  const { admins } = useSelector((state) => state.adminReducer);
   const { sellers } = useSelector((state) => state.sellerReducer);
 
   const sellersCount = sellers.length;
-  const usersCount = users.length - 1;
+  const adminsCount = admins.length - 1;
   return (
     <div className="d-flex justify-content-evenly p-4">
       <DashboardCard
@@ -18,9 +18,9 @@ export const Statstics = (props) => {
         props={props}
       />
       <DashboardCard
-        icon="user"
-        count={usersCount}
-        title="Total users"
+        icon="admin"
+        count={adminsCount}
+        title="Total admins"
         className="p-5 rounded"
         props={props}
       />

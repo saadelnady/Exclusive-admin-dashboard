@@ -15,7 +15,7 @@ import CancelledOrders from "./CancelledOrders.jsx";
 import TrackOrder from "./TrackOrder.jsx";
 
 export const Index = () => {
-  const { isLoggedIn } = useSelector((state) => state.userReducer);
+  const { isLoggedIn } = useSelector((state) => state.adminReducer);
   return (
     <div className="container profile mb-5">
       <ProfileHeader />

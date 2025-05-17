@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { serverUrl } from "../../API/API";
 
-const UserActivationPage = () => {
+const AdminActivationPage = () => {
   const { activationToken } = useParams();
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -15,12 +15,12 @@ const UserActivationPage = () => {
       const activationEmail = async () => {
         try {
           const response = await axios.post(
-            `${serverUrl}/api/users/activation`,
+            `${serverUrl}/api/admins/activation`,
             {
               activationToken,
             }
           );
-           setFirstName(response?.data?.data?.currentUser?.firstName);
+          setFirstName(response?.data?.data?.currentAdmin?.firstName);
         } catch (error) {
           setError(true);
           setErrorMessage(error?.response?.data?.message);
@@ -48,4 +48,4 @@ const UserActivationPage = () => {
     </div>
   );
 };
-export default UserActivationPage;
+export default AdminActivationPage;

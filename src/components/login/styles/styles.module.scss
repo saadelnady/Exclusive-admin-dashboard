@@ -1,16 +1,34 @@
 .login {
+  &::before {
+    content: "";
+    width: 100%;
+    position: absolute;
+    background-image: url("../assets/images/pngs/vectors.d7f48e81.png");
+    background-repeat: no-repeat;
+    left: 0;
+    bottom: 0;
+    background-position: 50%;
+    background-size: cover;
+    height: 155px;
+  }
   :global {
     position: relative;
     min-height: 100vh;
+    background: linear-gradient(
+      to bottom left,
+      #e07575 0%,
+      #db4444 50%,
+      #7d8184 90%
+    );
 
-    background: linear-gradient(135deg, #1f1c2c, #928dab);
     overflow: hidden;
-
     display: flex;
     justify-content: center;
     align-items: center;
 
     .inner {
+      position: relative;
+
       .eyeIcon,
       .register .google-signup {
         transition: 0.5s;
@@ -23,7 +41,7 @@
       .register .form-control,
       .login .form-control {
         border: none;
-        border-bottom: 1px solid $red-color;
+        border-bottom: 1px solid $primary-color;
         border-radius: 5px;
         transition: 0.5s;
       }
@@ -35,32 +53,34 @@
         object-fit: cover;
       }
       .register .google-signup {
-        border: 1px solid var(--red-color);
+        border: 1px solid $primary-color;
         background-color: white;
       }
-      .register .google-signup:hover {
-        background-color: #eee;
-      }
+
       .remember-me {
         width: 20px;
         height: 20px;
-        border: 2px solid var(--red-color);
-        background-color: red;
+        border: 2px solid $primary-color;
+        background-color: $primary-color;
       }
       .login-btn,
       .register-btn {
-        border-bottom: 1px solid var(--red-color);
+        border-bottom: 1px solid $primary-color;
+      }
+      .login-btn:hover,
+      .register-btn:hover {
+        border-bottom: 1px solid $secondary-color;
       }
 
       .forget-password {
-        color: var(--red-color);
+        color: $primary-color;
       }
 
       .eyeIcon {
         right: 20px;
       }
       .eyeIcon:hover {
-        color: var(--red-color);
+        color: $primary-color;
       }
     }
   }

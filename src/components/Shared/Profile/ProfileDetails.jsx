@@ -10,7 +10,7 @@ import {
 } from "../../../components/Validation/Profile/EditProfileValidation";
 import { MdError } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
-import { editUserProfile } from "../../../store/actions/user/userActions";
+import { editAdminProfile } from "../../../store/actions/admin/adminActions";
 import { useNavigate } from "react-router-dom";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import { isObjectNotEmpty } from "../../../helpers/checkers";
@@ -18,7 +18,7 @@ import { editSellerProfile } from "../../../store/actions/seller/sellerActions";
 import { decodeToken } from "../../../helpers/decodeToken";
 
 const ProfileDetails = () => {
-  const { user } = useSelector((state) => state.userReducer);
+  const { admin } = useSelector((state) => state.adminReducer);
   const { seller } = useSelector((state) => state.sellerReducer);
 
   const dispatch = useDispatch();
@@ -35,8 +35,8 @@ const ProfileDetails = () => {
   // =======================================================================================
 
   const handleSubmit = (values) => {
-    if (isObjectNotEmpty(user)) {
-      handleEditUser(values);
+    if (isObjectNotEmpty(admin)) {
+      handleEditAdmin(values);
     } else if (isObjectNotEmpty(seller)) {
       handleEditSeller(values);
     }
@@ -44,20 +44,20 @@ const ProfileDetails = () => {
   // =======================================================================================
 
   useEffect(() => {
-    if (user || seller) {
+    if (admin || seller) {
       formik.setValues({
-        image: user?.image || seller?.image,
-        firstName: user?.firstName || seller?.firstName,
-        lastName: user?.lastName || seller?.lastName,
-        email: user?.email || seller?.email,
-        address: user?.address || seller?.address,
-        mobilePhone: user?.mobilePhone || seller?.mobilePhone,
+        image: admin?.image || seller?.image,
+        firstName: admin?.firstName || seller?.firstName,
+        lastName: admin?.lastName || seller?.lastName,
+        email: admin?.email || seller?.email,
+        address: admin?.address || seller?.address,
+        mobilePhone: admin?.mobilePhone || seller?.mobilePhone,
         currentPassword: "",
         newPassword: "",
         newPasswordConfirmed: "",
       });
     }
-  }, [user, seller]);
+  }, [admin, seller]);
   // =======================================================================================
 
   const handleImageChange = (event) => {
@@ -90,9 +90,9 @@ const ProfileDetails = () => {
     return formData;
   };
 
-  const handleEditUser = (values) => {
-    const payLoad = { userId: user?._id, values: getFormData(values), toast };
-    dispatch(editUserProfile(payLoad));
+  const handleEditAdmin = (values) => {
+    const payLoad = { adminId: admin?._id, values: getFormData(values), toast };
+    dispatch(editAdminProfile(payLoad));
   };
   // =======================================================================================
 
@@ -115,27 +115,27 @@ const ProfileDetails = () => {
   return (
     <div
       className={`col-12 ${
-        user.role === "USER" ? "col-md-8" : ""
+        admin.role === "USER" ? "col-md-8" : ""
       } shadow p-5 rounded`}
     >
       <h3 className="edit">Edit Your Profile</h3>
       <form onSubmit={formik.handleSubmit} action="POST">
         <div className="rounded-pill profile-img-container">
-          <label htmlFor="userImage-input" className="profile-img-label">
+          <label htmlFor="adminImage-input" className="profile-img-label">
             <img
               src={
                 formik.values.image && formik.values.image instanceof Blob
                   ? URL.createObjectURL(formik.values.image)
-                  : `${serverUrl}/${seller.image || user.image}`
+                  : `${serverUrl}/${seller.image || admin.image}`
               }
               alt="profile-img"
-              className="user-img"
+              className="admin-img"
             />
             <CiCamera className="bg-light rounded-pill ic-camera " />
           </label>
           <input
             type="file"
-            id="userImage-input"
+            id="adminImage-input"
             className="d-none"
             name="image"
             accept="image/*"
