@@ -12,7 +12,7 @@ import { fetchProduct } from "../../store/actions/product/productActions";
 import { addToCart } from "../../store/actions/cart/cartActions";
 import { showToast } from "../../helpers/toast_helper";
 import Counter from "./Counter";
-import Loading from "./Loading";
+import Loading from "./loading";
 import Colors from "../Admin/Product/Colors";
 import Size from "../Admin/Product/Size";
 import "./styles/ProductModal.css";

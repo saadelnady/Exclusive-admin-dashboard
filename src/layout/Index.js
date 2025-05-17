@@ -27,11 +27,8 @@ const Admin = () => {
   };
   // =================================================================================
   useEffect(() => {
-    if (token) {
-      dispatch(fetchAdminProfile());
-      dispatch(fetchAdmins());
-      dispatch(fetchSellers());
-    }
+    dispatch(fetchAdminProfile());
+    dispatch(fetchSellers());
   }, [dispatch]);
 
   return (

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Search from "../../Shared/Search";
-import Loading from "../../Shared/Loading";
+import Loading from "../../Shared/loading";
 
 import { useDispatch, useSelector } from "react-redux";
 import Warning from "../../Shared/Warning";

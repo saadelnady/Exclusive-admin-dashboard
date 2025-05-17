@@ -5,12 +5,14 @@ import { HiDotsVertical } from "react-icons/hi";
 import { NavLink } from "react-router-dom";
 import { FaRegEdit } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import Loading  from "../../Shared/Loading";
+import Loading from "../../Shared/loading";
 
 export const List = ({ data, isLoading }) => {
+  {
+    isLoading && <Loading />;
+  }
   return (
     <>
-      {isLoading && <Loading />}
       <div className="list">
         <table className="w-100 bg-light rounded text-center ">
           <thead>
@@ -27,7 +29,7 @@ export const List = ({ data, isLoading }) => {
             </tr>
           </thead>
           <tbody>
-            {data.map(
+            {data?.map(
               (item, index) =>
                 item?.role !== "ADMIN" && (
                   <tr key={index} className="border-bottom ">

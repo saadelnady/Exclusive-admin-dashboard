@@ -6,7 +6,7 @@ import { ToastContainer } from "react-toastify";
 import Admin from "./layout";
 
 import Login from "./components/login";
-import { ProtectedAdminRoute } from "./components/Shared/ProtectedRoute.jsx";
+import ProtectedRoute from "./components/Shared/ProtectedRoute.jsx";
 
 import { IntlProvider, useIntl } from "react-intl";
 import ar from "@/languages/ar.json";
@@ -21,10 +21,8 @@ const languages = {
 
 function App() {
   const { locale } = useSelector((state) => state.localeReducer);
-  console.log(locale);
-
   const messages = languages[locale];
-  console.log(messages);
+
   useEffect(() => {
     document.documentElement.dir = locale === "ar" ? "rtl" : "ltr";
   }, [locale]);
@@ -37,9 +35,9 @@ function App() {
           <Route
             path="/*"
             element={
-              <ProtectedAdminRoute>
+              <ProtectedRoute>
                 <Admin />
-              </ProtectedAdminRoute>
+              </ProtectedRoute>
             }
           />
         </Routes>

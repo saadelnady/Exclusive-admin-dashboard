@@ -1,5 +1,5 @@
 import { getData, postData, putData } from "../../../API/API";
-import { decodeToken } from "../../../helpers/decodeToken";
+
 import { showToast } from "../../../helpers/toast_helper";
 
 import * as actionCreators from "./adminActionsCreators";
@@ -9,7 +9,7 @@ export const fetchAdminProfile = () => {
   return async (dispatch) => {
     dispatch(actionCreators.getAdminProfile());
     try {
-      const response = await getData(`/api/admins/getAdminProfile`);
+      const response = await getData(`/api/admin/getProfile`);
       dispatch(actionCreators.getAdminProfileSuccess(response?.data?.admin));
     } catch (error) {
       dispatch(actionCreators.getAdminProfileFail(error));
@@ -23,15 +23,13 @@ export const adminLogin = ({ values, toast, navigate, locale }) => {
     dispatch(actionCreators.postAdminLogin(values));
     try {
       const response = await postData(`/api/admin/login`, values);
-      console.log("values", values);
-      console.log("locale", locale);
 
       localStorage.setItem("TOKEN", response?.data?.token);
       dispatch(actionCreators.postAdminLoginSuccess(response?.data));
       showToast(toast, response?.message?.[locale], "success");
       dispatch(fetchAdminProfile());
       setTimeout(() => {
-        navigate("/");
+        navigate("/", { replace: true });
       }, 2500);
     } catch (error) {
       dispatch(actionCreators.postAdminLoginFail(error));
@@ -92,7 +90,7 @@ export const editAdminProfile = ({ adminId, values, toast }) => {
   return async (dispatch) => {
     dispatch(actionCreators.putAdminProfile());
     try {
-      const response = await putData(`/api/admins/${adminId}`, values);
+      const response = await putData(`/api/admin/${adminId}`, values);
       dispatch(actionCreators.putAdminProfileSuccess(response));
       showToast(toast, response?.message, "success");
     } catch (error) {
@@ -107,7 +105,8 @@ export const fetchAdmins = () => {
   return async (dispatch) => {
     dispatch(actionCreators.getAdmins());
     try {
-      const data = await getData(`/api/admins`);
+      const data = await getData(`/api/admin/all-admins`);
+
       dispatch(actionCreators.getAdminsSuccess(data.data.admins));
     } catch (error) {
       dispatch(actionCreators.getAdminsFail(error));

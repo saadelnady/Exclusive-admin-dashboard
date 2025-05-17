@@ -14,6 +14,20 @@ export const adminLinks = [
   },
   {
     id: v4(),
+    title: "admins",
+    to: "/admins",
+    icon: <FaProductHunt className="me-2 fs-4" />,
+    toggleKey: "isAdminsActive",
+    children: [
+      {
+        id: v4(),
+        title: "add-admin",
+        to: "/admins/add-admin",
+      },
+    ],
+  },
+  {
+    id: v4(),
     title: "profile",
     to: "/profile",
     icon: <CgProfile className="me-2 fs-4" />,

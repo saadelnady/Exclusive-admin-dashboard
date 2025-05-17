@@ -1,7 +1,29 @@
 import {
-  USERS_ACTIONS_TYPES,
-  USER_ACTIONS_TYPES,
-} from "../../actions/actionTypes";
+  GET_ADMIN,
+  GET_ADMIN_SUCCESS,
+  GET_ADMIN_FAIL,
+  GET_ADMIN_PROFILE,
+  GET_ADMIN_PROFILE_SUCCESS,
+  GET_ADMIN_PROFILE_FAIL,
+  GET_ADMINS,
+  GET_ADMINS_SUCCESS,
+  GET_ADMINS_FAIL,
+  POST_ADMIN_LOGIN,
+  POST_ADMIN_LOGIN_SUCCESS,
+  POST_ADMIN_LOGIN_FAIL,
+  POST_ADMIN_LOGOUT,
+  POST_ADMIN_LOGOUT_SUCCESS,
+  POST_ADMIN_LOGOUT_FAIL,
+  POST_ADMIN_REGISTER,
+  POST_ADMIN_REGISTER_SUCCESS,
+  POST_ADMIN_REGISTER_FAIL,
+  PUT_ADMIN_PROFILE,
+  PUT_ADMIN_PROFILE_SUCCESS,
+  PUT_ADMIN_PROFILE_FAIL,
+  DELETE_ADMIN,
+  DELETE_ADMIN_SUCCESS,
+  DELETE_ADMIN_FAIL,
+} from "@/store/actions/admin/actionTypes";
 
 const initialState = {
   isLoggedIn: false,
@@ -14,10 +36,10 @@ const initialState = {
 
 const adminReducer = (state = initialState, action) => {
   switch (action.type) {
-    case USER_ACTIONS_TYPES.GET_USER:
+    case GET_ADMIN_PROFILE:
       return { ...state, isLoading: true };
 
-    case USER_ACTIONS_TYPES.GET_USER_SUCCESS:
+    case GET_ADMIN_PROFILE_SUCCESS:
       return {
         ...state,
         isLoading: false,
@@ -26,7 +48,7 @@ const adminReducer = (state = initialState, action) => {
         error: null,
       };
 
-    case USER_ACTIONS_TYPES.GET_USER_FAIL:
+    case GET_ADMIN_PROFILE_FAIL:
       return {
         ...state,
         isLoading: false,
@@ -35,10 +57,10 @@ const adminReducer = (state = initialState, action) => {
       };
     // ====================================================================================================
 
-    case USER_ACTIONS_TYPES.GET_USER_PROFILE:
+    case GET_ADMIN:
       return { ...state, isLoading: true };
 
-    case USER_ACTIONS_TYPES.GET_USER_PROFILE_SUCCESS:
+    case GET_ADMIN_SUCCESS:
       return {
         ...state,
         isLoading: false,
@@ -47,7 +69,30 @@ const adminReducer = (state = initialState, action) => {
         error: null,
       };
 
-    case USER_ACTIONS_TYPES.GET_USER_PROFILE_FAIL:
+    case GET_ADMIN_FAIL:
+      return {
+        ...state,
+        isLoading: false,
+        isLoggedIn: false,
+        error: action.payLoad,
+      };
+    // ====================================================================================================
+
+    case GET_ADMINS:
+      return { ...state, isLoading: true };
+
+    case GET_ADMINS_SUCCESS:
+      console.log(action?.payLoad);
+
+      return {
+        ...state,
+        isLoading: false,
+        isLoggedIn: true,
+        admins: action?.payLoad,
+        error: null,
+      };
+
+    case GET_ADMINS_FAIL:
       return {
         ...state,
         isLoading: false,
@@ -56,19 +101,19 @@ const adminReducer = (state = initialState, action) => {
       };
 
     // ====================================================================================================
-    case USER_ACTIONS_TYPES.POST_USER_LOGIN:
+    case POST_ADMIN_LOGIN:
       return {
         ...state,
         isLoading: true,
       };
-    case USER_ACTIONS_TYPES.POST_USER_LOGIN_SUCCESS:
+    case POST_ADMIN_LOGIN_SUCCESS:
       return {
         ...state,
         isLoggedIn: true,
         isLoading: false,
         error: null,
       };
-    case USER_ACTIONS_TYPES.POST_USER_LOGIN_FAIL:
+    case POST_ADMIN_LOGIN_FAIL:
       return {
         ...state,
         isLoading: false,
@@ -76,21 +121,20 @@ const adminReducer = (state = initialState, action) => {
         error: action?.payLoad,
       };
     // ====================================================================================================
-    case USER_ACTIONS_TYPES.POST_USER_LOGOUT:
+    case POST_ADMIN_LOGOUT:
       return {
         ...state,
         isLoading: true,
       };
-    case USER_ACTIONS_TYPES.POST_USER_LOGOUT_SUCCESS:
+    case POST_ADMIN_LOGOUT_SUCCESS:
       return {
         ...state,
         isLoggedIn: false,
         isLoading: false,
         admin: {},
-        admins: [],
         error: null,
       };
-    case USER_ACTIONS_TYPES.POST_USER_LOGOUT_FAIL:
+    case POST_ADMIN_LOGOUT_FAIL:
       return {
         ...state,
         isLoading: false,
@@ -99,19 +143,38 @@ const adminReducer = (state = initialState, action) => {
       };
 
     // ====================================================================================================
-    case USER_ACTIONS_TYPES.POST_USER_REGISTER:
+    case POST_ADMIN_REGISTER:
       return {
         ...state,
       };
-    case USER_ACTIONS_TYPES.POST_USER_REGISTER_SUCCESS:
+    case POST_ADMIN_REGISTER_SUCCESS:
       return {
         ...state,
-
         message: action?.payLoad?.message,
         error: null,
       };
 
-    case USER_ACTIONS_TYPES.POST_USER_REGISTER_FAIL:
+    case POST_ADMIN_REGISTER_FAIL:
+      return {
+        ...state,
+        isLoggedIn: false,
+        isLoading: false,
+        error: action.payLoad,
+      };
+
+    // ====================================================================================================
+    case PUT_ADMIN_PROFILE:
+      return {
+        ...state,
+      };
+    case PUT_ADMIN_PROFILE_SUCCESS:
+      return {
+        ...state,
+        message: action?.payLoad?.message,
+        error: null,
+      };
+
+    case PUT_ADMIN_PROFILE_FAIL:
       return {
         ...state,
         isLoggedIn: false,
@@ -119,45 +182,24 @@ const adminReducer = (state = initialState, action) => {
         error: action.payLoad,
       };
     // ====================================================================================================
-    case USERS_ACTIONS_TYPES.GET_USERS:
-      return { ...state, isLoading: true };
-
-    case USERS_ACTIONS_TYPES.GET_USERS_SUCCESS:
+    case DELETE_ADMIN:
       return {
         ...state,
-        isLoading: false,
-        admins: action.payLoad,
-        error: null,
       };
-
-    case USERS_ACTIONS_TYPES.GET_USERS_FAIL:
+    case DELETE_ADMIN_SUCCESS:
       return {
         ...state,
-        isLoading: false,
-        error: action.payLoad,
-      };
-    // ====================================================================================================
-    case USER_ACTIONS_TYPES.PUT_USER_PROFILE:
-      return { ...state, isLoading: true };
-
-    case USER_ACTIONS_TYPES.PUT_USER_PROFILE_SUCCESS:
-      return {
-        ...state,
-        isLoading: false,
-        admin: action?.payLoad?.data?.admin,
         message: action?.payLoad?.message,
         error: null,
       };
 
-    case USER_ACTIONS_TYPES.PUT_USER_PROFILE_FAIL:
+    case DELETE_ADMIN_FAIL:
       return {
         ...state,
+        isLoggedIn: false,
         isLoading: false,
         error: action.payLoad,
-        message: action.payLoad,
       };
-    // ====================================================================================================
-
     default:
       return state;
   }

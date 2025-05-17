@@ -14,7 +14,7 @@ import {
 } from "../../../store/actions/category/categoryActions";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import Loading from "../../Shared/Loading";
+import Loading from "../../Shared/loading";
 import Search from "../../Shared/Search";
 import { Pagination } from "../../Shared/Pagination";
 import { OptionButton } from "../Shared/OptionButton";

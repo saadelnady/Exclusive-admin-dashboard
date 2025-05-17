@@ -12,9 +12,35 @@ import AddSubCategory from "../components/Admin/AddsubCategory/AddSubCategory.js
 import SubCategories from "../components/Admin/SubCategories/SubCategories.jsx";
 import Seller from "../components/Admin/Seller/Index.jsx";
 import NotFoundPage from "../components/Shared/NotFoundPage.jsx";
+import AllAdmins from "@/components/admins/index.js";
+import AddNewAdmin from "@/components/admins/addNewAdmin.js";
 
 const adminRoutes = (isWarning, handleShowWarning) => [
   { path: "/", element: <AdminDashboard /> },
+  {
+    path: "/admins",
+    element: (
+      <AllAdmins isWarning={isWarning} handleShowWarning={handleShowWarning} />
+    ),
+  },
+  {
+    path: "/admins/add-admin",
+    element: (
+      <AddNewAdmin
+        isWarning={isWarning}
+        handleShowWarning={handleShowWarning}
+      />
+    ),
+  },
+  {
+    path: "/admins/:adminId",
+    element: (
+      <AddNewAdmin
+        isWarning={isWarning}
+        handleShowWarning={handleShowWarning}
+      />
+    ),
+  },
   { path: "/profile", element: <AdminProfile /> },
   {
     path: "/products/:productId",

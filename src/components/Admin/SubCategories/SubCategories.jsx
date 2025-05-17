@@ -14,7 +14,7 @@ import {
   fetchSubCategories,
 } from "../../../store/actions/subCategory/subCategoryActions";
 import { Pagination } from "../../Shared/Pagination";
-import Loading from "../../Shared/Loading";
+import Loading from "../../Shared/loading";
 import Warning from "../../Shared/Warning";
 
 import Search from "../../Shared/Search";

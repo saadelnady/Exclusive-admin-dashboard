@@ -1,11 +1,19 @@
 // vite.config.js
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import svgr from "@svgr/rollup";
+import svgrPlugin from "vite-plugin-svgr";
 import path from "path";
 
 export default defineConfig({
-  plugins: [react(), svgr()],
+  plugins: [
+    react(),
+    svgrPlugin({
+      include: "**/*.svg",
+      svgrOptions: {
+        exportType: "default",
+      },
+    }),
+  ],
   esbuild: {
     include: /\.[jt]sx?$/,
     exclude: [],
@@ -22,7 +30,7 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: `@import "@styles/variables.scss";`,
+        additionalData: `@use "@styles/variables.scss" as *;`,
       },
     },
   },

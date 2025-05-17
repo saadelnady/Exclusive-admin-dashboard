@@ -18,7 +18,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { serverUrl } from "../../../API/API";
-import Loading from "../../Shared/Loading";
+import Loading from "../../Shared/loading";
 import CustomeTitle from "../../Shared/CustomeTitle";
 
 const AddCategory = () => {

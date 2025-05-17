@@ -15,5 +15,7 @@
   "password": "Password",
   "enter": "login",
   "required": "This field is required",
-  "invalid-email": "Invalid email address"
+  "invalid-email": "Invalid email address",
+  "admins": "All Admins",
+  "add-admin": "Add Admin"
 }

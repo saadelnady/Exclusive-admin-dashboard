@@ -10,7 +10,7 @@ import {
 import { ProductCard } from "./ProductCard";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import { toast } from "react-toastify";
-import Loading from "../../Shared/Loading";
+import Loading from "../../Shared/loading";
 import Warning from "../../Shared/Warning";
 import ProductOwnerCard from "../../Shared/ProductOwnerCard";
 import "./styles/Product.css";

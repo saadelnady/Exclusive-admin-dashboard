@@ -5,11 +5,12 @@ import { toast } from "react-toastify";
 import { useState } from "react";
 import { FaXmark } from "react-icons/fa6";
 import { adminLogout } from "../../store/actions/admin/adminActions";
-
+import IcPower from "./assets/images/svgs/ic-power.svg";
+import IcCircle from "./assets/images/svgs/ic-circle.svg";
 import { adminLinks } from "./data";
 import styles from "./styles/styles.module.scss";
 import { FormattedMessage } from "react-intl";
-
+import Logo from "@/assets/images/pngs/logo.png";
 const AdminSideBar = ({ isActive, handleSidebarActivation }) => {
   const { admin } = useSelector((state) => state.adminReducer);
   const [toggleStates, setToggleStates] = useState({
@@ -35,28 +36,22 @@ const AdminSideBar = ({ isActive, handleSidebarActivation }) => {
     <div
       className={` ${styles["Admin-SideBar"]} px-3 ${isActive ? "active" : ""}`}
     >
-      <div className="d-flex justify-content-between align-items-center px-1">
-        <h2 className="text-light py-5 px-3">{admin.firstName}.</h2>
-        <FaXmark
-          onClick={() => {
-            handleSidebarActivation();
-          }}
-          className="close-Sidebar"
-        />
+      <div className="logo">
+        <img src={Logo} alt="" />
       </div>
-      <div className="Admin-links d-flex justify-content-between flex-column">
+
+      <div className="Admin-links ">
+        <button className="btn btn-danger" onClick={handleLogOut}>
+          <IcPower />
+        </button>
         <ul className="main-nav">
           {adminLinks.map((link) => (
             <li
               key={link.id}
-              className={`fs-5 cursor-pointer ${
-                link.children
-                  ? "d-flex justify-content-between align-items-center"
-                  : ""
-              }`}
+              className="nav-item"
               onClick={() => link.toggleKey && HandleToggle(link.toggleKey)}
             >
-              <NavLink to={`${link.to}`} className="d-flex align-items-center">
+              <NavLink to={`${link.to}`}>
                 {link.icon}
                 <FormattedMessage id={link.title} />
               </NavLink>
@@ -75,11 +70,9 @@ const AdminSideBar = ({ isActive, handleSidebarActivation }) => {
               {link.children && toggleStates[link.toggleKey] && (
                 <ul className="sub-nav">
                   {link.children.map((child) => (
-                    <li key={child.id} className="fs-5 ms-3 mt-2">
-                      <NavLink
-                        to={`${child.to}`}
-                        className="btn btn-danger d-flex"
-                      >
+                    <li key={child.id}>
+                      <NavLink to={`${child.to}`} className="child-link">
+                        <IcCircle />
                         <FormattedMessage id={child.title} />
                       </NavLink>
                     </li>
@@ -89,10 +82,6 @@ const AdminSideBar = ({ isActive, handleSidebarActivation }) => {
             </li>
           ))}
         </ul>
-
-        <button className="btn btn-danger" onClick={handleLogOut}>
-          <FormattedMessage id="logout" />
-        </button>
       </div>
     </div>
   );

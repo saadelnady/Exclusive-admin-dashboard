@@ -14,7 +14,7 @@ import {
 import { productStatus } from "../../../helpers/options";
 
 import Warning from "../../Shared/Warning";
-import Loading from "../../Shared/Loading";
+import Loading from "../../Shared/loading";
 
 import { Pagination } from "../../Shared/Pagination";
 import CustomeTitle from "../../Shared/CustomeTitle";

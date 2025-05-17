@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 
 import { useEffect, useState } from "react";
-import Loading from "./Loading";
+import Loading from "./loading";
 import ProductsSlider from "../Admin/Shared/ProductsSlider/ProductsSlider";
 import SpecialHeading from "./SpecialHeading";
 
