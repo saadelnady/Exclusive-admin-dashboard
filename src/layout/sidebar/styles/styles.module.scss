@@ -1,9 +1,11 @@
-.Admin-SideBar {
+.sideBar {
   :global {
-    background: linear-gradient(to top left, $blue-color 0%, $blue-color 100%);
+    background: linear-gradient(180deg, #ffffff 0%, #f9f9f9 100%);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
     width: 300px;
     transition: $transition;
     z-index: 999;
+    padding: 0 30px;
     .logo {
       width: 100%;
       height: 115px;
@@ -16,33 +18,136 @@
     .Admin-links {
       height: 80vh;
       overflow-y: auto;
-
+      .btns {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 15px;
+        button,
+        a {
+          width: 40px;
+          height: 40px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-color: #fbfbfc;
+          padding: 10px;
+          border-radius: 50%;
+          border: none;
+          outline: none;
+          svg {
+            fill: #747684;
+          }
+        }
+      }
       .main-nav {
         .nav-item {
           margin-bottom: 15px;
-          padding: 5px 0 5px;
-          a {
+
+          > a {
+            padding: 10px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             column-gap: 10px;
             font-size: 18px;
-            font-weight: 600;
-            color: #fff;
+            font-weight: 700;
+            color: #000;
+            transition: $transition;
+            svg {
+              font-size: 20px;
+            }
+            &:hover {
+              background-color: #dde5eb;
+            }
+          }
+          > a.active {
+            background-color: #dde5eb;
+            color: $primary-color;
+            svg {
+              color: $primary-color;
+            }
+          }
+          .arrow {
+            transition: $transition;
+            display: inline-block;
+            margin-inline-start: auto;
+            svg {
+              transform: rotate(-180deg);
+              [dir="ltr"] & {
+                transform: rotate(360deg);
+              }
+            }
+            &.active {
+              svg {
+                transform: rotate(90deg);
+              }
+            }
           }
         }
         .sub-nav {
-          margin-top: 15px;
-          background-color: red;
-          padding-inline-start: 30px;
+          overflow: hidden;
+          max-height: 0;
+          overflow: hidden;
+          opacity: 0;
+          visibility: hidden;
+          transition: $transition;
+          &.active {
+            max-height: 500px;
+            opacity: 1;
+            visibility: visible;
+            li {
+              background-color: transparent;
+            }
+          }
+
+          li {
+            padding-inline-start: 30px;
+            .child-link {
+              display: flex;
+              align-items: center;
+              gap: 0.5rem;
+              margin-top: 10px;
+              text-decoration: none;
+              transition: $transition;
+              background-color: transparent;
+              font-size: 14px;
+              font-weight: 500;
+              span {
+                transition: $transition;
+              }
+              &.active {
+                color: $primary-color;
+              }
+              &:hover {
+                span {
+                  transform: translateX(-5px);
+                }
+              }
+              svg {
+                width: 12px;
+                height: 12px;
+              }
+            }
+          }
         }
       }
     }
+  }
+}
+@media (max-width: 992px) {
+  .sideBar {
+    position: fixed;
+    top: 0;
+    width: 280px;
+    z-index: 999;
+    height: 100%;
+    box-shadow: -3px 0 10px rgba(0, 0, 0, 0.17);
+    padding: 30px 20px;
 
-    .arrow-right {
-      transition: 0.5s;
-      &.active {
-        transform: rotate(90deg);
-      }
-    }
+    left: -100%;
+  }
+  .sideBar.active {
+    left: 0;
   }
 }
