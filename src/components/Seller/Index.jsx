@@ -2,22 +2,22 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { ProductsTable } from "../Shared/ProductsTable";
-import ProductOwnerCard from "../../Shared/ProductOwnerCard";
+import ProductOwnerCard from "../Shared/ProductOwnerCard";
 import { SellerProductsActions } from "./SellerProducts";
-import { fetchSeller } from "../../../store/actions/seller/sellerActions";
+import { fetchSeller } from "../../store/actions/seller/sellerActions";
 import {
   blockProduct,
   unBlockProduct,
   fetchSellerProducts,
   acceptProduct,
-} from "../../../store/actions/product/productActions";
-import { productStatus } from "../../../helpers/options";
+} from "../../store/actions/product/productActions";
+import { productStatus } from "../../helpers/options";
 
-import Warning from "../../Shared/Warning";
-import Loading from "../../Shared/loading";
+import Warning from "../Shared/Warning";
+import Loading from "../Shared/loading";
 
-import { Pagination } from "../../Shared/Pagination";
-import CustomeTitle from "../../Shared/CustomeTitle";
+import { Pagination } from "../Shared/Pagination";
+import CustomeTitle from "../Shared/CustomeTitle";
 import { toast } from "react-toastify";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 

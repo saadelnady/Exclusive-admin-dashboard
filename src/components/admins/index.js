@@ -1,7 +1,7 @@
 import { fetchAdmins } from "@/store/actions/admin/adminActions";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { List } from "../Admin/Shared/List";
+import { List } from "../Shared/List";
 
 const AllAdmins = () => {
   const { admins, isLoading } = useSelector((state) => state.adminReducer);

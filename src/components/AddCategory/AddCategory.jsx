@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import {
   initialValues,
   validate,
-} from "../../Validation/Admin/CategoryValidation";
+} from "../Validation/Admin/CategoryValidation";
 import { toast } from "react-toastify";
 
 import { MdError } from "react-icons/md";
@@ -14,12 +14,12 @@ import {
   addCategory,
   editCategory,
   fetchCategory,
-} from "../../../store/actions/category/categoryActions";
+} from "../../store/actions/category/categoryActions";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { serverUrl } from "../../../API/API";
-import Loading from "../../Shared/loading";
-import CustomeTitle from "../../Shared/CustomeTitle";
+import { serverUrl } from "../../API/API";
+import Loading from "../Shared/loading";
+import CustomeTitle from "../Shared/CustomeTitle";
 
 const AddCategory = () => {
   const { isLoading, category } = useSelector((state) => state.categoryReducer);

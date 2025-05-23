@@ -14,7 +14,7 @@ import Arrow from "./assets/svg/arrow-down.svg";
 import Moonicon from "./assets/svg/moon.svg";
 import Sunicon from "./assets/svg/sun.svg";
 
-import { parseCookies } from "nookies";
+import { parseCookies, setCookie } from "nookies";
 
 const AdminHeader = ({ handleSidebarActivation }) => {
   const dispatch = useDispatch();
@@ -25,23 +25,15 @@ const AdminHeader = ({ handleSidebarActivation }) => {
   const [msgOpen, setMsgOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
-  const [dataTheme, setDataTheme] = useState("light");
+  const cookies = parseCookies();
+  const [dataTheme, setDataTheme] = useState(cookies["data-theme"] || "light");
   const notifRef = useRef(null);
   const msgRef = useRef(null);
   const profileRef = useRef(null);
   const langRef = useRef(null);
 
-  const themeSwitcher = () => {
-    const cookies = parseCookies();
-    const currentTheme = cookies.theme ? cookies.theme : "light";
-    const newTheme = currentTheme === "light" ? "dark" : "light";
-    document.documentElement.setAttribute("data-theme", newTheme);
-    document.cookie = `theme=${newTheme}; path=/; max-age=2592000`;
-    setTheme(newTheme);
-  };
   useEffect(() => {
-    const cookies = parseCookies();
-    const savedTheme = cookies["data-theme"] || "light";
+    const savedTheme = cookies["data-theme"];
     setDataTheme(savedTheme);
     document.documentElement.setAttribute("data-theme", savedTheme);
   }, []);

@@ -1,0 +1,43 @@
+.home {
+  :global {
+    .page-title {
+      color: $text-dark;
+      [data-theme="dark"] & {
+        color: $text-light;
+      }
+    }
+    .statistics {
+      column-gap: 10px;
+      row-gap: 15px;
+      margin-bottom: 20px;
+      .state-card {
+        background-color: #fff;
+        color: $text-dark;
+        padding: 15px 0;
+        border-radius: 10px;
+        text-align: center;
+        transition: $transition;
+        border: 1px solid $border-color-light;
+
+        [data-theme="dark"] & {
+          background-color: $bg-dark;
+          border-color: $border-color-dark;
+          color: $text-light;
+        }
+        &:hover {
+          box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        svg {
+          stroke: $primary-color;
+          margin-bottom: 15px;
+        }
+        h4 {
+          margin-bottom: 10px;
+          [data-theme="dark"] & {
+            color: $text-light;
+          }
+        }
+      }
+    }
+  }
+}

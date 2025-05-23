@@ -1,5 +1,5 @@
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
-import { serverUrl } from "../../../API/API";
+import { serverUrl } from "../../API/API";
 import { ProductOptions } from "./ProductOptions";
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";

@@ -6,13 +6,13 @@ import {
   blockProduct,
   fetchProduct,
   unBlockProduct,
-} from "../../../store/actions/product/productActions";
+} from "../../store/actions/product/productActions";
 import { ProductCard } from "./ProductCard";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import { toast } from "react-toastify";
-import Loading from "../../Shared/loading";
-import Warning from "../../Shared/Warning";
-import ProductOwnerCard from "../../Shared/ProductOwnerCard";
+import Loading from "../Shared/loading";
+import Warning from "../Shared/Warning";
+import ProductOwnerCard from "../Shared/ProductOwnerCard";
 import "./styles/Product.css";
 
 const Index = ({ isWarning, handleShowWarning }) => {

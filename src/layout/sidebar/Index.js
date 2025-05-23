@@ -30,74 +30,80 @@ const AdminSideBar = ({ isActive, handleSidebarActivation }) => {
   };
 
   return (
-    <div className={`${styles.sideBar} ${isActive ? "active" : ""} `}>
-      <div className="logo">
-        <img src={Logo} alt="Logo" />
-      </div>
-
-      <div className="Admin-links">
-        <div className="btns">
-          <NavLink to="/settings">
-            <IcSettings />
-          </NavLink>
-          <button onClick={handleLogOut}>
-            <IcPower />
-          </button>
+    <div className={styles["sidebar-wrapper"]}>
+      <div
+        className={`overlay ${isActive ? "active" : ""}`}
+        onClick={handleSidebarActivation}
+      ></div>
+      <div className={`${isActive ? "active" : ""} sidebar`}>
+        <div className="logo">
+          <img src={Logo} alt="Logo" />
         </div>
 
-        <ul className="main-nav">
-          {adminLinks.map((link) => {
-            const isActive = activeToggleKey === link.toggleKey;
+        <div className="Admin-links">
+          <div className="btns">
+            <NavLink to="/settings">
+              <IcSettings />
+            </NavLink>
+            <button onClick={handleLogOut}>
+              <IcPower />
+            </button>
+          </div>
 
-            return (
-              <li
-                key={link.id}
-                className="nav-item"
-                onClick={() => link.toggleKey && handleToggle(link.toggleKey)}
-              >
-                <NavLink to={link.to}>
-                  {link.icon}
-                  <FormattedMessage id={link.title} />
+          <ul className="main-nav">
+            {adminLinks.map((link) => {
+              const isActive = activeToggleKey === link.toggleKey;
+
+              return (
+                <li
+                  key={link.id}
+                  className="nav-item"
+                  onClick={() => link.toggleKey && handleToggle(link.toggleKey)}
+                >
+                  <NavLink to={link.to}>
+                    {link.icon}
+                    <FormattedMessage id={link.title} />
+                    {link.children && (
+                      <span className={`${isActive ? "active" : ""} arrow`}>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          fill="currentColor"
+                          viewBox="0 0 16 16"
+                        >
+                          <path
+                            d="M6 4l4 4-4 4"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            fill="none"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                        </svg>
+                      </span>
+                    )}
+                  </NavLink>
+
                   {link.children && (
-                    <span className={`${isActive ? "active" : ""} arrow`}>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        fill="currentColor"
-                        viewBox="0 0 16 16"
-                      >
-                        <path
-                          d="M6 4l4 4-4 4"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          fill="none"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                      </svg>
-                    </span>
+                    <ul className={`sub-nav ${isActive ? "active" : ""}`}>
+                      {link.children.map((child) => (
+                        <li key={child.id}>
+                          <NavLink to={child.to} className="child-link">
+                            <IcCircle />
+                            <span>
+                              <FormattedMessage id={child.title} />
+                            </span>
+                          </NavLink>
+                        </li>
+                      ))}
+                    </ul>
                   )}
-                </NavLink>
-
-                {link.children && (
-                  <ul className={`sub-nav ${isActive ? "active" : ""}`}>
-                    {link.children.map((child) => (
-                      <li key={child.id}>
-                        <NavLink to={child.to} className="child-link">
-                          <IcCircle />
-                          <span>
-                            <FormattedMessage id={child.title} />
-                          </span>
-                        </NavLink>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </li>
-            );
-          })}
-        </ul>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
       </div>
     </div>
   );

@@ -1,22 +1,20 @@
-export const routes = [{ path: "/", element: <AdminDashboard /> }];
-
-import AdminDashboard from "../components/Admin/DashBoard/DashBoard.jsx";
-import AdminProfile from "../components/Admin/AdminProfile/Index.jsx";
-import Product from "../components/Admin/Product/Index.jsx";
-import PendingProducts from "../components/Admin/Products/PendingProducts.jsx";
-import AcceptedProducts from "../components/Admin/Products/AcceptedProducts.jsx";
-import BlockedProducts from "../components/Admin/Products/BlockedProducts.jsx";
-import Categories from "../components/Admin/Categories/Categories.jsx";
-import AddCategory from "../components/Admin/AddCategory/AddCategory.jsx";
-import AddSubCategory from "../components/Admin/AddsubCategory/AddSubCategory.jsx";
-import SubCategories from "../components/Admin/SubCategories/SubCategories.jsx";
-import Seller from "../components/Admin/Seller/Index.jsx";
+import AdminProfile from "../components/AdminProfile/Index.jsx";
+import Product from "../components/Product/Index.jsx";
+import PendingProducts from "../components/Products/PendingProducts.jsx";
+import AcceptedProducts from "../components/Products/AcceptedProducts.jsx";
+import BlockedProducts from "../components/Products/BlockedProducts.jsx";
+import Categories from "../components/Categories/Categories.jsx";
+import AddCategory from "../components/AddCategory/AddCategory.jsx";
+import AddSubCategory from "../components/AddsubCategory/AddSubCategory.jsx";
+import SubCategories from "../components/SubCategories/SubCategories.jsx";
+import Seller from "../components/Seller/Index.jsx";
 import NotFoundPage from "../components/Shared/NotFoundPage.jsx";
 import AllAdmins from "@/components/admins/index.js";
 import AddNewAdmin from "@/components/admins/addNewAdmin.js";
+import Home from "@/components/Home/Index.js";
 
 const adminRoutes = (isWarning, handleShowWarning) => [
-  { path: "/", element: <AdminDashboard /> },
+  { path: "/", element: <Home /> },
   {
     path: "/admins",
     element: (

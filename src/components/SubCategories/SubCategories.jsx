@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
-import { serverUrl } from "../../../API/API";
-import { formatDateAndTime } from "../../../helpers/formated_date_time";
+import { serverUrl } from "../../API/API";
+import { formatDateAndTime } from "../../helpers/formated_date_time";
 import { HiDotsVertical } from "react-icons/hi";
 import { FaRegEdit } from "react-icons/fa";
 
@@ -12,15 +12,15 @@ import { toast } from "react-toastify";
 import {
   deleteSubCategory,
   fetchSubCategories,
-} from "../../../store/actions/subCategory/subCategoryActions";
-import { Pagination } from "../../Shared/Pagination";
-import Loading from "../../Shared/loading";
-import Warning from "../../Shared/Warning";
+} from "../../store/actions/subCategory/subCategoryActions";
+import { Pagination } from "../Shared/Pagination";
+import Loading from "../Shared/loading";
+import Warning from "../Shared/Warning";
 
-import Search from "../../Shared/Search";
+import Search from "../Shared/Search";
 import { OptionButton } from "../Shared/OptionButton";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import CustomeTitle from "../../Shared/CustomeTitle";
+import CustomeTitle from "../Shared/CustomeTitle";
 
 const SubCategories = ({ isWarning, handleShowWarning }) => {
   const { isLoading, subCategories, total } = useSelector(

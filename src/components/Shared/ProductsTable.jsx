@@ -1,10 +1,10 @@
-import { serverUrl } from "../../../API/API";
-import { formatDateAndTime } from "../../../helpers/formated_date_time";
+import { serverUrl } from "../../API/API";
+import { formatDateAndTime } from "../../helpers/formated_date_time";
 import { HiDotsVertical } from "react-icons/hi";
 import { NavLink } from "react-router-dom";
 import "./styles/ProductsTable.css";
 import { FaEye } from "react-icons/fa";
-import { productStatus } from "../../../helpers/options";
+import { productStatus } from "../../helpers/options";
 import { OptionButton } from "./OptionButton";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import { MdBlock } from "react-icons/md";

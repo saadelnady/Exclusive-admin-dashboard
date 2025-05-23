@@ -1,11 +1,11 @@
 import React from "react";
-import { serverUrl } from "../../../API/API";
-import { formatDateAndTime } from "../../../helpers/formated_date_time";
+import { serverUrl } from "../../API/API";
+import { formatDateAndTime } from "../../helpers/formated_date_time";
 import { HiDotsVertical } from "react-icons/hi";
 import { NavLink } from "react-router-dom";
 import { FaRegEdit } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import Loading from "../../Shared/loading";
+import Loading from "./loading";
 
 export const List = ({ data, isLoading }) => {
   {

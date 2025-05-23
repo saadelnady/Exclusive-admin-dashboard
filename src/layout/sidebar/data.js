@@ -3,7 +3,7 @@ import { v4 } from "uuid";
 export const adminLinks = [
   {
     id: v4(),
-    title: "dashboard",
+    title: "home",
     to: "/",
     icon: (
       <svg

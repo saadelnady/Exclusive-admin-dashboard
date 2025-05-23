@@ -3,7 +3,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 2px solid #ccc;
+    border-bottom: 2px solid $border-color-light;
+    [data-theme="dark"] & {
+      border-color: $border-color-dark;
+    }
     padding: 15px;
     @media (max-width: 768px) {
       .burger-icon {
@@ -42,6 +45,11 @@
           min-width: 180px;
           box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
           padding: 0.5rem 0;
+          svg {
+            [data-theme="dark"] & {
+              fill: $bg-dark-2;
+            }
+          }
         }
       }
       .dark-mode-toggle {

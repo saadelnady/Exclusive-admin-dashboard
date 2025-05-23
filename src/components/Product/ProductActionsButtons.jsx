@@ -1,4 +1,4 @@
-import { productStatus } from "../../../helpers/options";
+import { productStatus } from "../../helpers/options";
 import { OptionButton } from "../Shared/OptionButton";
 import { MdBlock } from "react-icons/md";
 

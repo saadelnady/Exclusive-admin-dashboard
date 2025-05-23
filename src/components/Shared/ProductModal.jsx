@@ -13,8 +13,8 @@ import { addToCart } from "../../store/actions/cart/cartActions";
 import { showToast } from "../../helpers/toast_helper";
 import Counter from "./Counter";
 import Loading from "./loading";
-import Colors from "../Admin/Product/Colors";
-import Size from "../Admin/Product/Size";
+import Colors from "../Product/Colors";
+import Size from "../Product/Size";
 import "./styles/ProductModal.css";
 import { addToWishList } from "../../store/actions/wishList/wishListActions";
 

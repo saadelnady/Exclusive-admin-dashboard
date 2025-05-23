@@ -39,11 +39,13 @@ const Admin = () => {
       />
       <div className="d-flex flex-column w-100">
         <AdminHeader handleSidebarActivation={handleSidebarActivation} />
-        <Routes>
-          {adminRoutes(isWarning, handleShowWarning).map((route, index) => (
-            <Route key={index} path={route.path} element={route.element} />
-          ))}
-        </Routes>
+        <div className="pages">
+          <Routes>
+            {adminRoutes(isWarning, handleShowWarning).map((route, index) => (
+              <Route key={index} path={route.path} element={route.element} />
+            ))}
+          </Routes>
+        </div>
       </div>
     </div>
   );

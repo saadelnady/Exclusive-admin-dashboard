@@ -1,24 +1,21 @@
-import React, { useEffect, useState } from "react";
-import Search from "../../Shared/Search";
-import Loading from "../../Shared/loading";
-
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Warning from "../../Shared/Warning";
-
-import { Pagination } from "../../Shared/Pagination";
-import { ProductsTable } from "../Shared/ProductsTable";
 import {
-  acceptProduct,
-  blockProduct,
   fetchProducts,
-} from "../../../store/actions/product/productActions";
-import { productStatus } from "../../../helpers/options";
-import CustomeTitle from "../../Shared/CustomeTitle";
-import { toast } from "react-toastify";
-import { AiOutlineCheckCircle } from "react-icons/ai";
-import { MdBlock } from "react-icons/md";
+  unBlockProduct,
+} from "../../store/actions/product/productActions";
 
-const PendingProducts = ({ isWarning, handleShowWarning }) => {
+import Warning from "../Shared/Warning";
+import Search from "../Shared/Search";
+import Loading from "../Shared/loading";
+import { Pagination } from "../Shared/Pagination";
+import { ProductsTable } from "../Shared/ProductsTable";
+import { productStatus } from "../../helpers/options";
+import { MdBlock } from "react-icons/md";
+import { toast } from "react-toastify";
+import CustomeTitle from "../Shared/CustomeTitle";
+
+const BlockedProducts = ({ isWarning, handleShowWarning }) => {
   const { products, isLoading, total } = useSelector(
     (state) => state.productReducer
   );
@@ -27,93 +24,70 @@ const PendingProducts = ({ isWarning, handleShowWarning }) => {
   // =================================================================================
   const [currentPage, setCurrentPage] = useState(1);
   const limit = 10;
+
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
   // =================================================================================
+
   useEffect(() => {
     if (localStorage.getItem("TOKEN")) {
       dispatch(
         fetchProducts({
-          limit,
+          limit: limit,
           page: currentPage,
-          status: productStatus.PENDING,
+          status: productStatus.BLOCKED,
         })
       );
     }
   }, [dispatch, currentPage]);
   // =================================================================================
-  const handleSearchPendingProducts = (text) => {
+
+  const handleSearchBlockedProducts = (text) => {
     dispatch(
       fetchProducts({
         limit,
         page: currentPage,
         text,
-        status: productStatus.PENDING,
+        status: productStatus.BLOCKED,
       })
     );
-  };
-
-  // =================================================================================
-  const getPopupInfo = () => {
-    if (currentAction === "accept") {
-      return {
-        message: "Are you sure to Accept this product?",
-        Icon: <AiOutlineCheckCircle />,
-        actionTitle: "Accept",
-      };
-    } else if (currentAction === "block") {
-      return {
-        message: "Are you sure to Block this product?",
-        Icon: <MdBlock />,
-        actionTitle: "Block",
-      };
-    }
-    return {};
   };
   // =================================================================================
 
   const [targetProductId, setTargetProductId] = useState("");
-  const [currentAction, setCurrentAction] = useState("");
-  const targetProductIdHandler = (productId, action) => {
+  const targetProductIdHandler = (productId) => {
     setTargetProductId(productId);
-    setCurrentAction(action);
   };
-  const handleBlockProduct = () => {
+  const productUnBlockHandler = () => {
     const payLoad = { productId: targetProductId, toast };
-    dispatch(blockProduct(payLoad));
-    setCurrentAction("");
-  };
-  const handleAcceptProduct = () => {
-    const payLoad = { productId: targetProductId, toast };
-    dispatch(acceptProduct(payLoad));
-    setCurrentAction("");
+    dispatch(unBlockProduct(payLoad));
   };
   const cancelHandler = () => {
     setTargetProductId("");
-    setCurrentAction("");
   };
-  // =================================================================================
 
   console.log("targetProductId ===>", targetProductId);
+  const popupInfo = {
+    message: "Are you sure to UnBlock this product ?",
+    Icon: <MdBlock />,
+    actionTitle: "UnBlock",
+  };
+  // =================================================================================
 
   return (
     <div>
       {isWarning && (
         <Warning
           handleShowWarning={handleShowWarning}
-          actionHandler={
-            currentAction === "accept"
-              ? handleAcceptProduct
-              : handleBlockProduct
-          }
-          popupInfo={getPopupInfo()}
+          actionHandler={productUnBlockHandler}
+          popupInfo={popupInfo}
           cancelHandler={cancelHandler}
         />
       )}
       <div className="d-flex justify-content-between align-items-center flex-wrap px-3 py-2 shadow">
-        <CustomeTitle title={"All Pending products"} />
-        <Search action={handleSearchPendingProducts} />
+        <CustomeTitle title={"All blocked products"} />
+        <Search action={handleSearchBlockedProducts} />
       </div>
       {isLoading ? (
         <Loading />
@@ -139,4 +113,5 @@ const PendingProducts = ({ isWarning, handleShowWarning }) => {
     </div>
   );
 };
-export default PendingProducts;
+
+export default BlockedProducts;
