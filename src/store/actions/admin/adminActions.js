@@ -1,4 +1,4 @@
-import { getData, postData, putData } from "../../../API/API";
+import { deleteData, getData, postData, putData } from "../../../API/API";
 
 import { showToast } from "../../../helpers/toast_helper";
 
@@ -13,6 +13,18 @@ export const fetchAdminProfile = () => {
       dispatch(actionCreators.getAdminProfileSuccess(response?.data?.admin));
     } catch (error) {
       dispatch(actionCreators.getAdminProfileFail(error));
+    }
+  };
+};
+// ========================================================================================
+export const fetchAdmin = ({ adminId }) => {
+  return async (dispatch) => {
+    dispatch(actionCreators.getAdmin());
+    try {
+      const response = await getData(`/api/admin/${adminId}`);
+      dispatch(actionCreators.getAdminSuccess(response?.data?.admin));
+    } catch (error) {
+      dispatch(actionCreators.getAdminFail(error));
     }
   };
 };
@@ -86,6 +98,23 @@ export const adminRegister = ({ values, toast, navigate }) => {
   };
 };
 // ========================================================================================
+export const postAddAdmin = ({ data, toast, navigate, locale }) => {
+  return async (dispatch) => {
+    dispatch(actionCreators.postAddAdmin(data));
+
+    try {
+      const response = await postData("/api/admin/all-admins", data);
+
+      dispatch(actionCreators.postAddAdminSuccess(response));
+      showToast(toast, response?.message?.[locale], "success");
+      navigate("/admins");
+    } catch (error) {
+      dispatch(actionCreators.postAddAdminFail(error));
+      showToast(toast, error?.response?.data?.message?.[locale], "error");
+    }
+  };
+};
+// ========================================================================================
 export const editAdminProfile = ({ adminId, values, toast }) => {
   return async (dispatch) => {
     dispatch(actionCreators.putAdminProfile());
@@ -110,6 +139,20 @@ export const fetchAdmins = () => {
       dispatch(actionCreators.getAdminsSuccess(data.data.admins));
     } catch (error) {
       dispatch(actionCreators.getAdminsFail(error));
+    }
+  };
+};
+export const deleteAdmin = ({ adminId, locale, toast }) => {
+  return async (dispatch) => {
+    dispatch(actionCreators.deleteAdmin());
+    try {
+      const data = await deleteData(`/api/admin/${adminId}`);
+
+      dispatch(actionCreators.deleteAdminSuccess(data));
+      showToast(toast, data?.message?.[locale], "success");
+    } catch (error) {
+      showToast(toast, error?.response?.data?.message?.[locale], "error");
+      dispatch(actionCreators.deleteAdminFail(error));
     }
   };
 };

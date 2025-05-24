@@ -9,7 +9,6 @@ import { Route, Routes } from "react-router-dom";
 import AdminSideBar from "./sidebar";
 import AdminHeader from "./header";
 
-import { fetchSellers } from "../store/actions/seller/sellerActions.js";
 import styles from "./styles.module.scss";
 import adminRoutes from "./routes.js";
 

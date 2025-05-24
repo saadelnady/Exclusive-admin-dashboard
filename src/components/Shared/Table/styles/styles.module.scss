@@ -1,25 +1,16 @@
-$table-border-color-light: #ddd;
-$table-border-color-dark: #444;
-$bg-light: #f9f9f9;
-$bg-light-2: #efefef;
-$bg-dark: #222;
-$bg-dark-2: #333;
-$text-dark: #222;
-$text-light: #eee;
-
 .table-wrapper {
   :global {
-    width: 100%;
-    overflow-x: auto;
-    border-radius: 10px;
+    @media (max-width: 768px) {
+      overflow-x: auto;
+    }
     .custom-table {
       width: 100%;
-      min-width: 600px;
-      border-collapse: collapse;
       font-size: 14px;
       border: 1px solid $border-color-light;
+      background-color: $bg-light;
       [data-theme="dark"] & {
         border-color: $border-color-dark;
+        background-color: $bg-dark-2 !important;
       }
       thead {
         background-color: $bg-light;
@@ -53,59 +44,6 @@ $text-light: #eee;
         padding: 20px;
         font-style: italic;
         color: #999;
-      }
-      .dropdown-menu {
-        position: absolute;
-        top: 100%;
-        right: 0;
-        background: white;
-        border: 1px solid $table-border-color-light;
-        border-radius: 6px;
-        box-shadow: 0 2px 8px rgb(0 0 0 / 0.15);
-        z-index: 10;
-        min-width: 120px;
-        padding: 6px 0;
-
-        [data-theme="dark"] & {
-          background: $bg-dark-2;
-          border-color: $table-border-color-dark;
-          color: $text-light;
-          box-shadow: 0 2px 8px rgb(255 255 255 / 0.1);
-        }
-
-        button {
-          display: block;
-          width: 100%;
-          padding: 8px 16px;
-          background: transparent;
-          border: none;
-          text-align: right;
-          cursor: pointer;
-          font-size: 14px;
-          color: inherit;
-
-          &:hover {
-            background-color: $bg-light-2;
-            [data-theme="dark"] & {
-              background-color: $bg-dark;
-            }
-          }
-        }
-      }
-    }
-
-    /* Responsive */
-
-    @media (max-width: 768px) {
-      .dynamic-table {
-        min-width: 100%;
-        font-size: 13px;
-
-        th,
-        td {
-          padding: 8px 10px;
-          white-space: normal;
-        }
       }
     }
   }

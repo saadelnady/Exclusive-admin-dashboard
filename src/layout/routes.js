@@ -9,8 +9,9 @@ import AddSubCategory from "../components/AddsubCategory/AddSubCategory.jsx";
 import SubCategories from "../components/SubCategories/SubCategories.jsx";
 import Seller from "../components/Seller/Index.jsx";
 import NotFoundPage from "../components/Shared/NotFoundPage.jsx";
-import AllAdmins from "@/components/admins/index.js";
+import AllAdmins from "@/components/admins/Index.js";
 import AddNewAdmin from "@/components/admins/addNewAdmin.js";
+import ShowAdmin from "@/components/admins/showAdmin.js";
 import Home from "@/components/Home/Index.js";
 
 const adminRoutes = (isWarning, handleShowWarning) => [
@@ -22,12 +23,19 @@ const adminRoutes = (isWarning, handleShowWarning) => [
     ),
   },
   {
-    path: "/admins/add-admin",
+    path: "/admins/new",
     element: (
       <AddNewAdmin
         isWarning={isWarning}
         handleShowWarning={handleShowWarning}
       />
+    ),
+  },
+
+  {
+    path: "/admins/show/:adminId",
+    element: (
+      <ShowAdmin isWarning={isWarning} handleShowWarning={handleShowWarning} />
     ),
   },
   {

@@ -17,5 +17,22 @@
   "required": "هذا الحقل مطلوب ادخاله",
   "invalid-email": "البريد الالكتروني غير صالح",
   "admins": "جميع المشرفين",
-  "add-admin": "اضافة مشرف "
+  "add-admin": "اضافة مشرف ",
+  "name": "الاسم",
+  "phone": " الهاتف",
+  "actions": "الاجراءات",
+  "view": "عرض",
+  "delete": "حذف",
+  "edit": "تعديل",
+  "adminsDescription": "قائمة جميع المشرفين في الموقع",
+  "addNewAdmin": "اضافة مشرف جديد",
+  "addNewAdminDescription": "قم بملء الحقول لاضافة مشرف جديد",
+  "firstName": "الاسم الاول",
+  "lastName": "الاسم الاخير",
+  "mobilePhone": "الهاتف",
+  "invalid-mobilePhone": "الرقم المحمول غير صالح",
+  "name-min-length": "الاسم يجب ان يكون على الاقل 3 حروف",
+  "name-max-length": "الاسم يجب ان يكون على الاقل 20 حروف",
+  "password-length": "يجب أن تتكون كلمة المرور من 9 إلى 25 حرفًا أو رقمًا",
+  "password-not-match": "كلمة المرور غير متطابقة"
 }

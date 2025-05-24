@@ -23,6 +23,9 @@ import {
   DELETE_ADMIN,
   DELETE_ADMIN_SUCCESS,
   DELETE_ADMIN_FAIL,
+  POST_ADD_ADMIN,
+  POST_ADD_ADMIN_SUCCESS,
+  POST_ADD_ADMIN_FAIL,
 } from "@/store/actions/admin/actionTypes";
 
 const initialState = {
@@ -91,6 +94,28 @@ const adminReducer = (state = initialState, action) => {
       };
 
     case GET_ADMINS_FAIL:
+      return {
+        ...state,
+        isLoading: false,
+        isLoggedIn: false,
+        error: action.payLoad,
+      };
+
+    // ====================================================================================================
+
+    case POST_ADD_ADMIN:
+      return { ...state, isLoading: true };
+
+    case POST_ADD_ADMIN_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        isLoggedIn: true,
+        admins: [...state.admins, action?.payLoad?.admin],
+        error: null,
+      };
+
+    case POST_ADD_ADMIN_FAIL:
       return {
         ...state,
         isLoading: false,
@@ -185,8 +210,13 @@ const adminReducer = (state = initialState, action) => {
         ...state,
       };
     case DELETE_ADMIN_SUCCESS:
+      const filteredAdmins = state.admins.filter(
+        (admin) => admin._id !== action?.payLoad?.admin._id
+      );
       return {
         ...state,
+        isLoading: false,
+        admins: filteredAdmins,
         message: action?.payLoad?.message,
         error: null,
       };

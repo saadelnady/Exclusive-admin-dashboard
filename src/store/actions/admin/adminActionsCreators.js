@@ -20,6 +20,12 @@ import {
   POST_ADMIN_REGISTER,
   POST_ADMIN_REGISTER_FAIL,
   POST_ADMIN_REGISTER_SUCCESS,
+  POST_ADD_ADMIN,
+  POST_ADD_ADMIN_SUCCESS,
+  POST_ADD_ADMIN_FAIL,
+  DELETE_ADMIN,
+  DELETE_ADMIN_SUCCESS,
+  DELETE_ADMIN_FAIL,
 } from "./actionTypes";
 
 // ===========================================================================
@@ -41,6 +47,27 @@ export const getAdminSuccess = (payLoad) => {
 export const getAdminFail = (payLoad) => {
   return {
     type: GET_ADMIN_FAIL,
+    payLoad,
+  };
+};
+// ===========================================================================
+// ===========================================================================
+
+export const postAddAdmin = (payLoad) => {
+  return {
+    type: POST_ADD_ADMIN,
+    payLoad,
+  };
+};
+export const postAddAdminSuccess = (payLoad) => {
+  return {
+    type: POST_ADD_ADMIN_SUCCESS,
+    payLoad,
+  };
+};
+export const postAddAdminFail = (payLoad) => {
+  return {
+    type: POST_ADD_ADMIN_FAIL,
     payLoad,
   };
 };
@@ -164,3 +191,21 @@ export const getAdminsFail = (payLoad) => {
   };
 };
 //============================================================================
+export const deleteAdmin = (payLoad) => {
+  return {
+    type: DELETE_ADMIN,
+    payLoad,
+  };
+};
+export const deleteAdminSuccess = (payLoad) => {
+  return {
+    type: DELETE_ADMIN_SUCCESS,
+    payLoad,
+  };
+};
+export const deleteAdminFail = (payLoad) => {
+  return {
+    type: DELETE_ADMIN_FAIL,
+    payLoad,
+  };
+};

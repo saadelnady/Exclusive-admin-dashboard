@@ -39,7 +39,7 @@ export const adminLinks = [
       {
         id: v4(),
         title: "add-admin",
-        to: "/admins/add-admin",
+        to: "/admins/new",
       },
     ],
   },
