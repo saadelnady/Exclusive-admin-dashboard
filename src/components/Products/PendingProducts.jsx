@@ -95,8 +95,6 @@ const PendingProducts = ({ isWarning, handleShowWarning }) => {
   };
   // =================================================================================
 
-  console.log("targetProductId ===>", targetProductId);
-
   return (
     <div>
       {isWarning && (

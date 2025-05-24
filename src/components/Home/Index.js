@@ -26,6 +26,10 @@ const Home = () => {
   useEffect(() => {
     dispatch(fetchStatistics());
   }, [dispatch]);
+  const localizedData = statistics?.salesData?.data?.map((item) => ({
+    ...item,
+    name: item.name[locale],
+  }));
 
   isLoading && <Loading />;
   return (
@@ -37,24 +41,24 @@ const Home = () => {
       {/* Cards for stats */}
       <Row className="statistics">
         {statistics?.statisticsData?.map((stat, index) => (
-          <Col xs={12} md={5} lg={3} key={index}>
-            <div className="state-card">
-              <span>{stat?.icon}</span>
-              <h4>{stat?.title?.[locale]}</h4>
-              <p>{stat?.total}</p>
-            </div>
-          </Col>
+          <div className="state-card" key={index}>
+            <span>{stat?.icon}</span>
+            <h4>{stat?.title?.[locale]}</h4>
+            <p>{stat?.total}</p>
+          </div>
         ))}
       </Row>
 
       {/* Charts + Notifications */}
-      <Row className="  g-4 mb-4">
+      <Row className="g-4 mb-4">
         <Col md={12}>
-          <div className="card">
-            <div className="card-header fw-semibold">مبيعات الشهر الحالي</div>
+          <div className="charts">
+            <div className="card-header fw-semibold">
+              {statistics?.salesData?.title?.[locale]}
+            </div>
             <div className="card-body">
               <ResponsiveContainer width="100%" height={300}>
-                <LineChart data={salesData}>
+                <LineChart data={localizedData}>
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="name" />
                   <YAxis />
@@ -71,27 +75,22 @@ const Home = () => {
           </div>
         </Col>
 
-        <div className="col-md-4">
-          <div className="card">
-            <div className="card-header fw-semibold">الإشعارات</div>
+        <Col xs={12} md={4}>
+          <div className="notifications">
+            <h3 className="card-header fw-semibold">الإشعارات</h3>
             <ul className="list-group list-group-flush">
               {notifications.map((note, index) => (
-                <li className="list-group-item text-muted" key={index}>
-                  🔵 {note}
-                </li>
+                <li key={index}>🔵 {note}</li>
               ))}
             </ul>
           </div>
-        </div>
+        </Col>
         <Col xs={12} md={8}>
-          {/* Recent Activity */}
-          <div className="card">
-            <div className="card-header fw-semibold">الأنشطة الأخيرة</div>
+          <div className="activities">
+            <h3 className="card-header fw-semibold">الأنشطة الأخيرة</h3>
             <ul className="list-group list-group-flush">
               {activities.map((act, index) => (
-                <li className="list-group-item text-muted" key={index}>
-                  🔸 {act}
-                </li>
+                <li key={index}>🔸 {act}</li>
               ))}
             </ul>
           </div>

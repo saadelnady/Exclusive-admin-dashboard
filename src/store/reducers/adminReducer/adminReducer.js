@@ -82,8 +82,6 @@ const adminReducer = (state = initialState, action) => {
       return { ...state, isLoading: true };
 
     case GET_ADMINS_SUCCESS:
-      console.log(action?.payLoad);
-
       return {
         ...state,
         isLoading: false,

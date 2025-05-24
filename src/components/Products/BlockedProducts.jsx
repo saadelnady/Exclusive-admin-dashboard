@@ -67,7 +67,6 @@ const BlockedProducts = ({ isWarning, handleShowWarning }) => {
     setTargetProductId("");
   };
 
-  console.log("targetProductId ===>", targetProductId);
   const popupInfo = {
     message: "Are you sure to UnBlock this product ?",
     Icon: <MdBlock />,

@@ -28,7 +28,6 @@ const Admin = () => {
   // =================================================================================
   useEffect(() => {
     dispatch(fetchAdminProfile());
-    dispatch(fetchSellers());
   }, [dispatch]);
 
   return (

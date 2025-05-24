@@ -19,7 +19,6 @@ const SellerActivationPage = () => {
               activationToken,
             }
           );
-          console.log("data", response);
           setFirstName(response?.data?.data?.currentSeller?.firstName);
         } catch (error) {
           setError(true);
