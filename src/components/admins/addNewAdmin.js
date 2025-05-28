@@ -1,15 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./styles/styles.module.scss";
 import { FormattedMessage, useIntl } from "react-intl";
 import { useForm } from "react-hook-form";
 import { Col, Row } from "react-bootstrap";
+
 import IcError from "./assets/images/svgs/ic-error.svg";
+
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { postAddAdmin } from "@/store/actions/admin/adminActions";
+import UploadImg from "../Shared/uploadImg/Index";
+import { postData } from "@/API/API";
 
 const addNewAdmin = () => {
+  const [selectedImg, setSelectedImg] = useState({
+    file: null,
+    preview: null,
+  });
+
   const {
     register,
     handleSubmit,
@@ -21,8 +30,26 @@ const addNewAdmin = () => {
   const navigate = useNavigate();
   const { locale, formatMessage } = useIntl();
   const onSubmit = async (data) => {
-    console.log(data);
+    data.image = selectedImg?.preview ? selectedImg?.preview : null;
     dispatch(postAddAdmin({ data, toast, navigate, locale }));
+  };
+  const handleImageChange = async (event) => {
+    const file = event.target.files[0];
+    const formData = new FormData();
+    formData.append("files", file);
+
+    try {
+      const uploadImgResponse = await postData("/api/upload", formData);
+
+      setSelectedImg({ file, preview: uploadImgResponse?.files?.[0]?.url });
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+  const handleRemoveImg = () => {
+    if (selectedImg?.preview || selectedImg?.file) {
+      setSelectedImg({ file: null, preview: null });
+    }
   };
   return (
     <div className={`page ${styles.addNewAdmin}`}>
@@ -32,13 +59,22 @@ const addNewAdmin = () => {
             <FormattedMessage id="addNewAdmin" />
           </h4>
           <p className="page-description">
-            <FormattedMessage id="addNewAdminDescription" />
+            <FormattedMessage id="addNewAdminDescription" /> :
           </p>
         </div>
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Row>
-          <Col xs={12} md={5}>
+          <Col xs={12}>
+            <UploadImg
+              handleImageChange={handleImageChange}
+              selectedImg={selectedImg}
+              handleRemoveImg={handleRemoveImg}
+              register={register}
+              errors={errors}
+            />
+          </Col>
+          <Col xs={12} md={6}>
             <div className="input-wrapper">
               <input
                 {...register("firstName", {
@@ -63,7 +99,7 @@ const addNewAdmin = () => {
               )}
             </div>
           </Col>
-          <Col xs={12} md={5}>
+          <Col xs={12} md={6}>
             <div className="input-wrapper">
               <input
                 {...register("lastName", {
@@ -88,7 +124,7 @@ const addNewAdmin = () => {
               )}
             </div>
           </Col>
-          <Col xs={12} md={5}>
+          <Col xs={12} md={6}>
             <div className="input-wrapper">
               <input
                 type="email"
@@ -111,7 +147,7 @@ const addNewAdmin = () => {
               )}
             </div>
           </Col>
-          <Col xs={12} md={5}>
+          <Col xs={12} md={6}>
             <div className="input-wrapper">
               <input
                 {...register("mobilePhone", {
@@ -132,7 +168,7 @@ const addNewAdmin = () => {
               )}
             </div>
           </Col>
-          <Col xs={12} md={5}>
+          <Col xs={12} md={6}>
             <div className="input-wrapper">
               <input
                 {...register("password", {
@@ -156,7 +192,7 @@ const addNewAdmin = () => {
               )}
             </div>
           </Col>
-          <Col xs={12} md={5}>
+          <Col xs={12} md={6}>
             <div className="input-wrapper">
               <input
                 {...register("confirmPassword", {

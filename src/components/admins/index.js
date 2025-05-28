@@ -8,8 +8,10 @@ import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import styles from "./styles/styles.module.scss";
+import Warning from "../Shared/Warning";
+import { RiDeleteBin6Line } from "react-icons/ri";
 
-const AllAdmins = () => {
+const AllAdmins = ({ isWarning, handleShowWarning }) => {
   const { admins, isLoading } = useSelector((state) => state.adminReducer);
   const { locale } = useIntl();
   const dispatch = useDispatch();
@@ -18,6 +20,7 @@ const AllAdmins = () => {
   }, [dispatch]);
 
   const [openMenuId, setOpenMenuId] = useState(null);
+  const [selectedAdmin, setSelectedAdmin] = useState(null);
   const menuRefs = useRef({});
 
   useEffect(() => {
@@ -35,17 +38,35 @@ const AllAdmins = () => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+  const cancelHandler = () => {
+    setSelectedAdmin(null);
+  };
+  const handleDeleteAdmin = () => {
+    if (!selectedAdmin) return;
+    dispatch(deleteAdmin({ adminId: selectedAdmin?._id, locale, toast }));
+  };
 
-  const handleDelete = (admin) => {
-    if (window.confirm(`هل أنت متأكد من حذف ${admin.firstName}؟`)) {
-      dispatch(deleteAdmin({ adminId: admin?._id, locale, toast }));
-    }
+  const popupInfo = {
+    Icon: <RiDeleteBin6Line />,
+    subMessage:
+      "You will delete every products related to this subCategory too",
+    message: "Are you sure to Delete this subCategory ?",
+    actionTitle: "Delete",
   };
   const cols = [
     {
       label: "#",
       name: "#",
       render: (row, rowIdx) => <div>{`${rowIdx + 1}`}</div>,
+    },
+    {
+      label: "image",
+      name: "image",
+      render: (row, rowIdx) => (
+        <div className="admin-img">
+          <img src={row?.image} alt="admin-img" />
+        </div>
+      ),
     },
     {
       label: "name",
@@ -112,7 +133,12 @@ const AllAdmins = () => {
                 <FormattedMessage id="view" />
               </NavLink>
 
-              <button onClick={() => handleDelete(row)}>
+              <button
+                onClick={() => {
+                  handleShowWarning(popupInfo);
+                  setSelectedAdmin(row);
+                }}
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
@@ -160,6 +186,14 @@ const AllAdmins = () => {
         </NavLink>
       </div>
       <Table cols={cols} rows={admins} />
+      {isWarning && (
+        <Warning
+          handleShowWarning={handleShowWarning}
+          actionHandler={handleDeleteAdmin}
+          popupInfo={popupInfo}
+          cancelHandler={cancelHandler}
+        />
+      )}
     </div>
   );
 };

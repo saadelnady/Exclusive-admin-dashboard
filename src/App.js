@@ -2,8 +2,8 @@ import { Route, Routes } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
-import styles from "./styles/App.module.scss";
 import "react-toastify/dist/ReactToastify.css";
+import "./styles/app.scss";
 import { ToastContainer } from "react-toastify";
 import Admin from "./layout";
 
@@ -32,7 +32,7 @@ function App() {
   }, [locale]);
   return (
     <IntlProvider messages={messages} defaultLocale="ar" locale={locale}>
-      <div className={styles.app}>
+      <div className="app">
         <Routes>
           <Route
             path="/login"

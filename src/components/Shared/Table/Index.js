@@ -16,19 +16,27 @@ const CustomTable = ({ cols = [], rows = [] }) => {
           </tr>
         </thead>
         <tbody>
-          {rows.map((row, rowIdx) => (
-            <tr key={rowIdx}>
-              {cols.map((col, colIdx) => {
-                const value = row[col.name];
+          {rows?.length > 0 ? (
+            rows.map((row, rowIdx) => (
+              <tr key={rowIdx}>
+                {cols.map((col, colIdx) => {
+                  const value = row[col.name];
 
-                return (
-                  <td key={colIdx}>
-                    {col.render ? col.render(row, rowIdx) : value}
-                  </td>
-                );
-              })}
+                  return (
+                    <td key={colIdx}>
+                      {col.render ? col.render(row, rowIdx) : value}
+                    </td>
+                  );
+                })}
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan={cols.length} className="text-center">
+                <FormattedMessage id="noData" />
+              </td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
     </div>
