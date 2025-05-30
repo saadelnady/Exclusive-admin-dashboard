@@ -13,9 +13,9 @@ import {
   deleteSubCategory,
   fetchSubCategories,
 } from "../../store/actions/subCategory/subCategoryActions";
-import { Pagination } from "../Shared/Pagination";
+// import { Pagination } from "../Shared/Pagination";
 import Loading from "../Shared/loading";
-import Warning from "../Shared/Warning";
+// import Warning from "../Shared/Warning";
 
 import Search from "../Shared/Search";
 import { OptionButton } from "../Shared/OptionButton";
@@ -71,17 +71,17 @@ const SubCategories = ({ isWarning, handleShowWarning }) => {
   };
   return (
     <div className="subCategories-page">
-      {isWarning && (
+      {/* {isWarning && (
         <Warning
           handleShowWarning={handleShowWarning}
           actionHandler={deleteSubCategoryHandler}
           popupInfo={popupInfo}
           cancelHandler={cancelHandler}
         />
-      )}
+      )} */}
       <div className="d-flex justify-content-between align-items-center flex-wrap px-3 py-2 shadow">
         <CustomeTitle title={"All SubCategories"} />
-        <Search action={handleSearchSubCategory} />
+        {/* <Search action={handleSearchSubCategory} /> */}
       </div>
       <div className="subCategories-list bg-white">
         {isLoading ? (
@@ -148,14 +148,14 @@ const SubCategories = ({ isWarning, handleShowWarning }) => {
           </p>
         )}
       </div>
-      {subCategories?.length > 0 && (
+      {/* {subCategories?.length > 0 && (
         <Pagination
           itemsPerPage={limit}
           paginate={handlePageChange}
           currentPage={currentPage}
           totalItems={total}
         />
-      )}
+      )} */}
     </div>
   );
 };

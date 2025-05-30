@@ -35,6 +35,10 @@ const initialState = {
   admin: {},
   admins: [],
   message: "",
+  total: 0,
+  currentPage: 1,
+  pageSize: 10,
+  totalPages: 0,
 };
 
 const adminReducer = (state = initialState, action) => {
@@ -89,7 +93,11 @@ const adminReducer = (state = initialState, action) => {
         ...state,
         isLoading: false,
         isLoggedIn: true,
-        admins: action?.payLoad,
+        admins: action?.payLoad?.admins,
+        total: action?.payLoad?.total,
+        currentPage: action?.payLoad?.currentPage,
+        pageSize: action?.payLoad?.pageSize,
+        totalPages: action?.payLoad?.totalPages,
         error: null,
       };
 
@@ -210,13 +218,14 @@ const adminReducer = (state = initialState, action) => {
         ...state,
       };
     case DELETE_ADMIN_SUCCESS:
-      const filteredAdmins = state.admins.filter(
-        (admin) => admin._id !== action?.payLoad?.admin._id
-      );
       return {
         ...state,
         isLoading: false,
-        admins: filteredAdmins,
+        admins: action?.payLoad?.admins,
+        total: action?.payLoad?.total,
+        currentPage: action?.payLoad?.currentPage,
+        pageSize: action?.payLoad?.pageSize,
+        totalPages: action?.payLoad?.totalPages,
         message: action?.payLoad?.message,
         error: null,
       };

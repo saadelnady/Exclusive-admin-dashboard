@@ -3,9 +3,9 @@ import Search from "../Shared/Search";
 import Loading from "../Shared/loading";
 
 import { useDispatch, useSelector } from "react-redux";
-import Warning from "../Shared/Warning";
+// import Warning from "../Shared/Warning";
 
-import { Pagination } from "../Shared/Pagination";
+// import { Pagination } from "../Shared/Pagination";
 import { ProductsTable } from "../Shared/ProductsTable";
 import {
   acceptProduct,
@@ -97,7 +97,7 @@ const PendingProducts = ({ isWarning, handleShowWarning }) => {
 
   return (
     <div>
-      {isWarning && (
+      {/* {isWarning && (
         <Warning
           handleShowWarning={handleShowWarning}
           actionHandler={
@@ -108,10 +108,10 @@ const PendingProducts = ({ isWarning, handleShowWarning }) => {
           popupInfo={getPopupInfo()}
           cancelHandler={cancelHandler}
         />
-      )}
+      )} */}
       <div className="d-flex justify-content-between align-items-center flex-wrap px-3 py-2 shadow">
         <CustomeTitle title={"All Pending products"} />
-        <Search action={handleSearchPendingProducts} />
+        {/* <Search action={handleSearchPendingProducts} /> */}
       </div>
       {isLoading ? (
         <Loading />
@@ -126,14 +126,14 @@ const PendingProducts = ({ isWarning, handleShowWarning }) => {
       ) : (
         <p className="m-4 text-center fw-bold">there 's no products to show</p>
       )}
-      {products?.length > 0 && (
+      {/* {products?.length > 0 && (
         <Pagination
           itemsPerPage={limit}
           paginate={handlePageChange}
           currentPage={currentPage}
           totalItems={total}
         />
-      )}
+      )} */}
     </div>
   );
 };

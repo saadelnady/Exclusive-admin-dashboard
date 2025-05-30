@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import { deleteData, getData, postData, putData } from "../../../API/API";
 
 import { showToast } from "../../../helpers/toast_helper";
@@ -130,14 +131,24 @@ export const editAdminProfile = ({ adminId, values, toast }) => {
 };
 // ========================================================================================
 
-export const fetchAdmins = () => {
+export const fetchAdmins = ({ limit = "", page = "", text = "", locale }) => {
   return async (dispatch) => {
     dispatch(actionCreators.getAdmins());
     try {
-      const data = await getData(`/api/admin/all-admins`);
+      let data;
+      if (text) {
+        data = await getData(
+          `/api/admin/all-admins?limit=${limit}&page=${page}&text=${text}`
+        );
+      } else {
+        data = await getData(
+          `/api/admin/all-admins?limit=${limit}&page=${page}`
+        );
+      }
 
-      dispatch(actionCreators.getAdminsSuccess(data.data.admins));
+      dispatch(actionCreators.getAdminsSuccess(data?.data));
     } catch (error) {
+      toast.error(error?.response?.data?.message?.[locale]);
       dispatch(actionCreators.getAdminsFail(error));
     }
   };

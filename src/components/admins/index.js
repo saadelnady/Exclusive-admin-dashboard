@@ -10,14 +10,25 @@ import { toast } from "react-toastify";
 import styles from "./styles/styles.module.scss";
 import Warning from "../Shared/Warning";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import Pagenation from "../Shared/pagenation/Index";
+import SearchBar from "../Shared/search/Index";
+import { Col, Row } from "react-bootstrap";
 
 const AllAdmins = ({ isWarning, handleShowWarning }) => {
-  const { admins, isLoading } = useSelector((state) => state.adminReducer);
+  const { admins, isLoading, total, currentPage, pageSize, totalPages } =
+    useSelector((state) => state.adminReducer);
   const { locale } = useIntl();
   const dispatch = useDispatch();
+
   useEffect(() => {
-    dispatch(fetchAdmins());
+    dispatch(fetchAdmins({ limit: 10, page: 1 }));
   }, [dispatch]);
+
+  const handlePageChange = (newPage) => {
+    if (newPage !== currentPage) {
+      dispatch(fetchAdmins({ limit: 10, page: newPage }));
+    }
+  };
 
   const [openMenuId, setOpenMenuId] = useState(null);
   const [selectedAdmin, setSelectedAdmin] = useState(null);
@@ -43,9 +54,17 @@ const AllAdmins = ({ isWarning, handleShowWarning }) => {
   };
   const handleDeleteAdmin = () => {
     if (!selectedAdmin) return;
-    dispatch(deleteAdmin({ adminId: selectedAdmin?._id, locale, toast }));
+    dispatch(
+      deleteAdmin({
+        adminId: selectedAdmin?._id,
+        locale,
+        toast,
+      })
+    );
   };
-
+  const searchHandler = (e) => {
+    dispatch(fetchAdmins({ text: e, limit: 10, page: 1, locale }));
+  };
   const popupInfo = {
     Icon: <RiDeleteBin6Line />,
     subMessage:
@@ -57,7 +76,11 @@ const AllAdmins = ({ isWarning, handleShowWarning }) => {
     {
       label: "#",
       name: "#",
-      render: (row, rowIdx) => <div>{`${rowIdx + 1}`}</div>,
+      render: (row, rowIdx) => (
+        <div>
+          {currentPage === 1 ? rowIdx + 1 : (currentPage - 1) * 10 + rowIdx + 1}
+        </div>
+      ),
     },
     {
       label: "image",
@@ -173,19 +196,35 @@ const AllAdmins = ({ isWarning, handleShowWarning }) => {
   return (
     <div className={`page ${styles.admins}`}>
       <div className="page-header">
-        <div className="text">
-          <h4 className="page-title">
-            <FormattedMessage id="admins" />
-          </h4>
-          <p className="page-description">
-            <FormattedMessage id="adminsDescription" />
-          </p>
-        </div>
-        <NavLink to="/admins/new">
-          + <FormattedMessage id="add-admin" />
-        </NavLink>
+        <Row className="align-items-center gap-y-3 justify-content-between ">
+          <Col xs={12}>
+            <div className="text">
+              <h4 className="page-title">
+                <FormattedMessage id="admins" />
+              </h4>
+              <p className="page-description">
+                <FormattedMessage id="adminsDescription" />
+              </p>
+            </div>
+          </Col>
+          <Col xs={12} md={6}>
+            <SearchBar searchHandler={searchHandler} />
+          </Col>
+          <Col xs={12} md={3}>
+            <NavLink to="/admins/new">
+              + <FormattedMessage id="add-admin" />
+            </NavLink>
+          </Col>
+        </Row>
       </div>
       <Table cols={cols} rows={admins} />
+      {admins?.length > 0 && totalPages > 1 && (
+        <Pagenation
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
+      )}
       {isWarning && (
         <Warning
           handleShowWarning={handleShowWarning}

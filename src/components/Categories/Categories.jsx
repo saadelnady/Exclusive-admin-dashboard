@@ -6,7 +6,7 @@ import { FaRegEdit } from "react-icons/fa";
 
 import "./styles/Categories.css";
 import { NavLink } from "react-router-dom";
-import Warning from "../Shared/Warning";
+// import Warning from "../Shared/Warning";
 
 import {
   deleteCategory,
@@ -16,7 +16,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import Loading from "../Shared/loading";
 import Search from "../Shared/Search";
-import { Pagination } from "../Shared/Pagination";
+// import { Pagination } from "../Shared/Pagination";
 import { OptionButton } from "../Shared/OptionButton";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import CustomeTitle from "../Shared/CustomeTitle";
@@ -67,17 +67,17 @@ const Categories = ({ isWarning, handleShowWarning }) => {
   // ==========================================================
   return (
     <div className="categories-page">
-      {isWarning && (
+      {/* {isWarning && (
         <Warning
           handleShowWarning={handleShowWarning}
           actionHandler={deleteCategoryHandler}
           cancelHandler={cancelHandler}
           popupInfo={popupInfo}
         />
-      )}
+      )} */}
       <div className="d-flex justify-content-between align-items-center flex-wrap px-3 py-2">
         <CustomeTitle title={"All categories"} />
-        <Search action={handleSearchCategory} />
+        {/* <Search action={handleSearchCategory} /> */}
       </div>
       <div className="categories-list bg-white ">
         {isLoading ? (
@@ -144,14 +144,14 @@ const Categories = ({ isWarning, handleShowWarning }) => {
           </p>
         )}
       </div>
-      {categories?.length > 0 && (
+      {/* {categories?.length > 0 && (
         <Pagination
           itemsPerPage={limit}
           paginate={handlePageChange}
           currentPage={currentPage}
           totalItems={total}
         />
-      )}
+      )} */}
     </div>
   );
 };

@@ -11,7 +11,7 @@ import { ProductCard } from "./ProductCard";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import { toast } from "react-toastify";
 import Loading from "../Shared/loading";
-import Warning from "../Shared/Warning";
+// import Warning from "../Shared/Warning";
 import ProductOwnerCard from "../Shared/ProductOwnerCard";
 import "./styles/Product.css";
 
@@ -84,7 +84,7 @@ const Index = ({ isWarning, handleShowWarning }) => {
         <Loading />
       ) : (
         <div className="admin-product-page row align-items-start justify-content-evenly my-5">
-          {isWarning && (
+          {/* {isWarning && (
             <Warning
               handleShowWarning={handleShowWarning}
               actionHandler={
@@ -97,7 +97,7 @@ const Index = ({ isWarning, handleShowWarning }) => {
               popupInfo={getPopUpInfo()}
               cancelHandler={cancelHandler}
             />
-          )}
+          )} */}
           <ProductOwnerCard productOwner={productOwner} />
           <ProductCard
             product={product}

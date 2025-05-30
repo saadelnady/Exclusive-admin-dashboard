@@ -5,10 +5,10 @@ import {
   unBlockProduct,
 } from "../../store/actions/product/productActions";
 
-import Warning from "../Shared/Warning";
+// import Warning from "../Shared/Warning";
 import Search from "../Shared/Search";
 import Loading from "../Shared/loading";
-import { Pagination } from "../Shared/Pagination";
+// import { Pagination } from "../Shared/Pagination";
 import { ProductsTable } from "../Shared/ProductsTable";
 import { productStatus } from "../../helpers/options";
 import { MdBlock } from "react-icons/md";
@@ -76,17 +76,17 @@ const BlockedProducts = ({ isWarning, handleShowWarning }) => {
 
   return (
     <div>
-      {isWarning && (
+      {/* {isWarning && (
         <Warning
           handleShowWarning={handleShowWarning}
           actionHandler={productUnBlockHandler}
           popupInfo={popupInfo}
           cancelHandler={cancelHandler}
         />
-      )}
+      )} */}
       <div className="d-flex justify-content-between align-items-center flex-wrap px-3 py-2 shadow">
         <CustomeTitle title={"All blocked products"} />
-        <Search action={handleSearchBlockedProducts} />
+        {/* <Search action={handleSearchBlockedProducts} /> */}
       </div>
       {isLoading ? (
         <Loading />
@@ -101,14 +101,14 @@ const BlockedProducts = ({ isWarning, handleShowWarning }) => {
       ) : (
         <p className="m-4 text-center fw-bold">there 's no products to show</p>
       )}
-      {products?.length > 0 && (
+      {/* {products?.length > 0 && (
         <Pagination
           itemsPerPage={limit}
           paginate={handlePageChange}
           currentPage={currentPage}
           totalItems={total}
         />
-      )}
+      )} */}
     </div>
   );
 };

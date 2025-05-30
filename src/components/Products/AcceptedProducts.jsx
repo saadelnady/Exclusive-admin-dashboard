@@ -4,8 +4,8 @@ import {
   blockProduct,
   fetchProducts,
 } from "../../store/actions/product/productActions";
-import { Pagination } from "../Shared/Pagination";
-import Warning from "../Shared/Warning";
+// import { Pagination } from "../Shared/Pagination";
+// import Warning from "../Shared/Warning";
 import Search from "../Shared/Search";
 import Loading from "../Shared/loading";
 
@@ -73,18 +73,18 @@ const AcceptedProducts = ({ isWarning, handleShowWarning }) => {
 
   return (
     <div>
-      {isWarning && (
+      {/* {isWarning && (
         <Warning
           handleShowWarning={handleShowWarning}
           actionHandler={productBlockHandler}
           popupInfo={popupInfo}
           cancelHandler={cancelHandler}
         />
-      )}
+      )} */}
 
       <div className="d-flex justify-content-between align-items-center flex-wrap px-3 py-2 shadow">
         <CustomeTitle title={"All Accepted products"} />
-        <Search action={handleSearchAcceptedProducts} />
+        {/* <Search action={handleSearchAcceptedProducts} /> */}
       </div>
 
       {isLoading ? (
@@ -101,14 +101,14 @@ const AcceptedProducts = ({ isWarning, handleShowWarning }) => {
         <p className="m-4 text-center fw-bold">there 's no Products to show</p>
       )}
 
-      {products?.length > 0 && (
+      {/* {products?.length > 0 && (
         <Pagination
           itemsPerPage={limit}
           paginate={handlePageChange}
           currentPage={currentPage}
           totalItems={total}
         />
-      )}
+      )} */}
     </div>
   );
 };

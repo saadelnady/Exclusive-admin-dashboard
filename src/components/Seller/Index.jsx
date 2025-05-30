@@ -13,10 +13,10 @@ import {
 } from "../../store/actions/product/productActions";
 import { productStatus } from "../../helpers/options";
 
-import Warning from "../Shared/Warning";
+// import Warning from "../Shared/Warning";
 import Loading from "../Shared/loading";
 
-import { Pagination } from "../Shared/Pagination";
+// import { Pagination } from "../Shared/Pagination";
 import CustomeTitle from "../Shared/CustomeTitle";
 import { toast } from "react-toastify";
 import { AiOutlineCheckCircle } from "react-icons/ai";
@@ -100,7 +100,7 @@ const Index = ({ isWarning, handleShowWarning }) => {
   };
   return (
     <div className="row m-4 justify-content-between">
-      {isWarning && (
+      {/* {isWarning && (
         <Warning
           handleShowWarning={handleShowWarning}
           popupInfo={getPopUpInfo()}
@@ -113,7 +113,7 @@ const Index = ({ isWarning, handleShowWarning }) => {
           }
           cancelHandler={cancelHandler}
         />
-      )}
+      )} */}
       <div className="row justify-content-between align-items-center flex-wrap px-3 py-2 mb-5 shadow">
         <CustomeTitle title={"All seller products"} />
       </div>
@@ -138,14 +138,14 @@ const Index = ({ isWarning, handleShowWarning }) => {
         ) : (
           <p className="m-4">there 's no Products to show</p>
         )}
-        {products?.length > 0 && (
+        {/* {products?.length > 0 && (
           <Pagination
             itemsPerPage={limit}
             paginate={handlePageChange}
             currentPage={currentPage}
             totalItems={total}
           />
-        )}
+        )} */}
       </div>
     </div>
   );

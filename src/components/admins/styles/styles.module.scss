@@ -1,11 +1,10 @@
 .admins {
   :global {
     .page-header {
-      margin-bottom: 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      margin-bottom: 50px;
+
       .text {
+        margin-bottom: 15px;
         .page-title {
           font-size: 24px;
           line-height: 1;
