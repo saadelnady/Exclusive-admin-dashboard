@@ -18,7 +18,7 @@ import IcError from "./assets/images/svgs/ic-error.svg";
 import { postData } from "@/API/API";
 import { toast } from "react-toastify";
 
-const ShowAdmin = () => {
+const ShowUser = () => {
   const { adminId } = useParams();
   const { selectedAdminBySuperAdmin, isLoading } = useSelector(
     (state) => state.adminReducer
@@ -359,4 +359,4 @@ const ShowAdmin = () => {
   );
 };
 
-export default ShowAdmin;
+export default ShowUser;

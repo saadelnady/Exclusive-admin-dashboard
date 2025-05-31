@@ -38,5 +38,22 @@
   "image": "الصورة",
   "noData": "لا يوجد بيانات",
   "search": "بحث",
-  "search-placeholder": " يمكنك ادخال محتوى البحث "
+  "search-placeholder": " يمكنك ادخال محتوى البحث ",
+  "cancel": "الغاء",
+  "delete-admin-message": "هل تريد حذف هذا المشرف؟",
+  "editAdmin": "تعديل المشرف",
+  "editAdminDescription": "قم بملء الحقول لتعديل المشرف",
+  "role": "الصلاحية",
+  "admin": "مشرف",
+  "superAdmin": "مشرف عام",
+  "currentPassword": "كلمة المرور الحالية",
+  "newPassword": "كلمة المرور الجديدة",
+  "confirmPassword": "تاكيد كلمة المرور",
+  "editProfile": "تعديل الملف الشخصي",
+  "editProfileDescription": "قم بملء الحقول لتعديل الملف الشخصي",
+  "users": "المستخدمين",
+  "delete-user-message": "هل تريد حذف هذا المستخدم؟",
+  "#": "#",
+  "usersTitle": "جميع المستخدمين",
+  "usersDescription": "قائمة جميع المستخدمين في الموقع"
 }

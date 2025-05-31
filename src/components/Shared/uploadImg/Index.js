@@ -42,14 +42,15 @@ const UploadImg = ({
           className="d-none"
           accept="image/*"
           {...register("image", {
-            required: formatMessage({ id: "required" }),
+            required: selectedImg?.preview
+              ? false
+              : formatMessage({ id: "required" }),
           })}
           onChange={handleImageChange}
         />
       </div>
-
       {errors?.image && (
-        <p className="error">
+        <p className="error text-center mb-5">
           <IcError />
           {errors?.image.message}
         </p>

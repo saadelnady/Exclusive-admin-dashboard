@@ -5,6 +5,8 @@ import { useForm } from "react-hook-form";
 import { Col, Row } from "react-bootstrap";
 
 import IcError from "./assets/images/svgs/ic-error.svg";
+import IcEye from "./assets/images/svgs/ic-eye.svg";
+import IcEyeSlash from "./assets/images/svgs/ic-eyeslash.svg";
 
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -13,7 +15,7 @@ import { postAddAdmin } from "@/store/actions/admin/adminActions";
 import UploadImg from "../Shared/uploadImg/Index";
 import { postData } from "@/API/API";
 
-const addNewAdmin = () => {
+const AddNewAdmin = () => {
   const [selectedImg, setSelectedImg] = useState({
     file: null,
     preview: null,
@@ -51,6 +53,16 @@ const addNewAdmin = () => {
       setSelectedImg({ file: null, preview: null });
     }
   };
+  const [showPassword, setShowPassword] = useState({
+    password: false,
+    confirm: false,
+  });
+  const togglePassword = (field) => {
+    setShowPassword((prev) => ({
+      ...prev,
+      [field]: !prev[field],
+    }));
+  };
   return (
     <div className={`page ${styles.addNewAdmin}`}>
       <div className="page-header">
@@ -76,7 +88,11 @@ const addNewAdmin = () => {
           </Col>
           <Col xs={12} md={6}>
             <div className="input-wrapper">
+              <label className="label" htmlFor="firstName">
+                {formatMessage({ id: "firstName" })} :
+              </label>
               <input
+                id="firstName"
                 {...register("firstName", {
                   required: formatMessage({ id: "required" }),
                   minLength: {
@@ -89,7 +105,6 @@ const addNewAdmin = () => {
                   },
                 })}
                 className="special-input"
-                placeholder={intl.formatMessage({ id: "firstName" })}
               />
               {errors.firstName && (
                 <p className="error">
@@ -101,7 +116,12 @@ const addNewAdmin = () => {
           </Col>
           <Col xs={12} md={6}>
             <div className="input-wrapper">
+              <label className="label" htmlFor="lastName">
+                {formatMessage({ id: "lastName" })} :
+              </label>
+
               <input
+                id="lastName"
                 {...register("lastName", {
                   required: formatMessage({ id: "required" }),
                   minLength: {
@@ -114,7 +134,6 @@ const addNewAdmin = () => {
                   },
                 })}
                 className="special-input"
-                placeholder={intl.formatMessage({ id: "lastName" })}
               />
               {errors.lastName && (
                 <p className="error">
@@ -126,10 +145,14 @@ const addNewAdmin = () => {
           </Col>
           <Col xs={12} md={6}>
             <div className="input-wrapper">
+              <label className="label" htmlFor="email">
+                {formatMessage({ id: "email" })} :
+              </label>
+
               <input
+                id="email"
                 type="email"
                 autoComplete="email"
-                placeholder={formatMessage({ id: "email" })}
                 className="special-input"
                 {...register("email", {
                   required: formatMessage({ id: "required" }),
@@ -149,7 +172,11 @@ const addNewAdmin = () => {
           </Col>
           <Col xs={12} md={6}>
             <div className="input-wrapper">
+              <label className="label" htmlFor="mobilePhone">
+                {formatMessage({ id: "mobilePhone" })} :
+              </label>
               <input
+                id="mobilePhone"
                 {...register("mobilePhone", {
                   required: formatMessage({ id: "required" }),
                   pattern: {
@@ -158,7 +185,8 @@ const addNewAdmin = () => {
                   },
                 })}
                 className="special-input"
-                placeholder={intl.formatMessage({ id: "mobilePhone" })}
+                type="tel"
+                dir="ltr"
               />
               {errors.mobilePhone && (
                 <p className="error">
@@ -170,7 +198,11 @@ const addNewAdmin = () => {
           </Col>
           <Col xs={12} md={6}>
             <div className="input-wrapper">
+              <label className="label" htmlFor="password">
+                {formatMessage({ id: "password" })} :
+              </label>
               <input
+                id="password"
                 {...register("password", {
                   required: formatMessage({ id: "required" }),
                   pattern: {
@@ -181,9 +213,15 @@ const addNewAdmin = () => {
                   },
                 })}
                 className="special-input"
-                type="password"
-                placeholder={intl.formatMessage({ id: "password" })}
+                type={showPassword.confirm ? "text" : "password"}
               />
+              <button
+                className="icon"
+                type="button"
+                onClick={() => togglePassword("password")}
+              >
+                {showPassword.password ? <IcEyeSlash /> : <IcEye />}
+              </button>
               {errors.password && (
                 <p className="error">
                   <IcError />
@@ -194,7 +232,11 @@ const addNewAdmin = () => {
           </Col>
           <Col xs={12} md={6}>
             <div className="input-wrapper">
+              <label className="label" htmlFor="confirmPassword">
+                {formatMessage({ id: "confirmPassword" })} :
+              </label>
               <input
+                id="confirmPassword"
                 {...register("confirmPassword", {
                   required: formatMessage({ id: "required" }),
                   pattern: {
@@ -211,9 +253,15 @@ const addNewAdmin = () => {
                   },
                 })}
                 className="special-input"
-                type="password"
-                placeholder={intl.formatMessage({ id: "password" })}
+                type={showPassword.confirm ? "text" : "password"}
               />
+              <button
+                className="icon"
+                type="button"
+                onClick={() => togglePassword("confirm")}
+              >
+                {showPassword.confirm ? <IcEyeSlash /> : <IcEye />}
+              </button>
               {errors.confirmPassword && (
                 <p className="error">
                   <IcError />
@@ -232,4 +280,4 @@ const addNewAdmin = () => {
   );
 };
 
-export default addNewAdmin;
+export default AddNewAdmin;

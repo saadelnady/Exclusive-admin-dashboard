@@ -26,6 +26,12 @@ import {
   DELETE_ADMIN,
   DELETE_ADMIN_SUCCESS,
   DELETE_ADMIN_FAIL,
+  GET_SELECTED_ADMIN_By_SUPER_ADMIN,
+  GET_SELECTED_ADMIN_By_SUPER_ADMIN_SUCCESS,
+  GET_SELECTED_ADMIN_By_SUPER_ADMIN_FAIL,
+  PUT_ADMIN,
+  PUT_ADMIN_SUCCESS,
+  PUT_ADMIN_FAIL,
 } from "./actionTypes";
 
 // ===========================================================================
@@ -206,6 +212,46 @@ export const deleteAdminSuccess = (payLoad) => {
 export const deleteAdminFail = (payLoad) => {
   return {
     type: DELETE_ADMIN_FAIL,
+    payLoad,
+  };
+};
+//============================================================================
+
+export const getSelectedAdminBySuperAdmin = (payLoad) => {
+  return {
+    type: GET_SELECTED_ADMIN_By_SUPER_ADMIN,
+    payLoad,
+  };
+};
+export const getSelectedAdminBySuperAdminSuccess = (payLoad) => {
+  return {
+    type: GET_SELECTED_ADMIN_By_SUPER_ADMIN_SUCCESS,
+    payLoad,
+  };
+};
+export const getSelectedAdminBySuperAdminFail = (payLoad) => {
+  return {
+    type: GET_SELECTED_ADMIN_By_SUPER_ADMIN_FAIL,
+    payLoad,
+  };
+};
+//============================================================================
+
+export const putAdmin = (payLoad) => {
+  return {
+    type: PUT_ADMIN,
+    payLoad,
+  };
+};
+export const putAdminSuccess = (payLoad) => {
+  return {
+    type: PUT_ADMIN_SUCCESS,
+    payLoad,
+  };
+};
+export const putAdminFail = (payLoad) => {
+  return {
+    type: PUT_ADMIN_FAIL,
     payLoad,
   };
 };

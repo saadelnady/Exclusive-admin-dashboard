@@ -8,6 +8,7 @@ import styles from "./styles/styles.module.scss";
 import IcNotification from "./assets/svg/ic-notifications.svg";
 import IcEnvelope from "./assets/svg/ic-envelope.svg";
 import IcBurger from "./assets/svg/ic-burger.svg";
+import IcUser from "./assets/svg/ic-user.svg";
 import KSAFlag from "./assets/svg/KSAFlag.png";
 import UnitedKingdom from "./assets/svg/kingdom.png";
 import Arrow from "./assets/svg/arrow-down.svg";
@@ -15,6 +16,9 @@ import Moonicon from "./assets/svg/moon.svg";
 import Sunicon from "./assets/svg/sun.svg";
 
 import { parseCookies, setCookie } from "nookies";
+import { NavLink } from "react-router-dom";
+import { FormattedMessage } from "react-intl";
+import { fetchAdminProfile } from "@/store/actions/admin/adminActions";
 
 const AdminHeader = ({ handleSidebarActivation }) => {
   const dispatch = useDispatch();
@@ -32,6 +36,9 @@ const AdminHeader = ({ handleSidebarActivation }) => {
   const profileRef = useRef(null);
   const langRef = useRef(null);
 
+  useEffect(() => {
+    dispatch(fetchAdminProfile());
+  }, [dispatch]);
   useEffect(() => {
     const savedTheme = cookies["data-theme"];
     setDataTheme(savedTheme);
@@ -183,7 +190,7 @@ const AdminHeader = ({ handleSidebarActivation }) => {
         <div className="profile-wrapper" ref={profileRef}>
           <div className="img-wrapper">
             <img
-              src={`${serverUrl}/${admin.image}`}
+              src={admin?.image}
               alt="Admin"
               className="admin-image"
               onClick={() => setProfileOpen(!profileOpen)}
@@ -191,11 +198,17 @@ const AdminHeader = ({ handleSidebarActivation }) => {
           </div>
 
           {profileOpen && (
-            <div className="profile">
-              <button className="dropdown-item">الملف الشخصي</button>
+            <ul className="profile">
+              <li>
+                <NavLink to={`/profile/${admin._id}`} className="dropdown-item">
+                  <IcUser />
+                  <FormattedMessage id="profile" />
+                </NavLink>
+              </li>
+
               <button className="dropdown-item">الإعدادات</button>
               <button className="dropdown-item">تسجيل الخروج</button>
-            </div>
+            </ul>
           )}
         </div>
       </div>

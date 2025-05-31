@@ -1,6 +1,6 @@
 .table-wrapper {
   :global {
-    @media (max-width: 768px) {
+    @media (max-width: 992px) {
       overflow-x: auto;
     }
     margin-bottom: 40px;
@@ -39,7 +39,18 @@
           background-color: $bg-dark;
         }
       }
-
+      .actions {
+        @media (max-width: 992px) {
+          .custom-dropdown {
+            top: -81%;
+            right: -120px;
+            [dir="ltr"] & {
+              right: unset;
+              left: -120px;
+            }
+          }
+        }
+      }
       .no-data {
         text-align: center;
         padding: 20px;

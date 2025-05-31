@@ -1,4 +1,3 @@
-import AdminProfile from "../components/AdminProfile/Index.jsx";
 import Product from "../components/Product/Index.jsx";
 import PendingProducts from "../components/Products/PendingProducts.jsx";
 import AcceptedProducts from "../components/Products/AcceptedProducts.jsx";
@@ -13,41 +12,79 @@ import AllAdmins from "@/components/admins/Index.js";
 import AddNewAdmin from "@/components/admins/addNewAdmin.js";
 import ShowAdmin from "@/components/admins/showAdmin.js";
 import Home from "@/components/Home/Index.js";
+import Profile from "@/components/Profile/Index.js";
+import ProtectedRoute from "./ProtectedRoute.js";
+import { ADMIN, SUPER_ADMIN } from "../helpers/roles.js";
+import Unauthorized from "@/components/Shared/UnAuthorized/Index.js";
+import ShowUser from "@/components/users/showUser.js";
+import AllUsers from "@/components/users";
 
-const adminRoutes = (isWarning, handleShowWarning) => [
+const allRoutes = (isWarning, handleShowWarning) => [
   { path: "/", element: <Home /> },
   {
     path: "/admins",
     element: (
-      <AllAdmins isWarning={isWarning} handleShowWarning={handleShowWarning} />
+      <ProtectedRoute allowedRoles={[SUPER_ADMIN]}>
+        <AllAdmins
+          isWarning={isWarning}
+          handleShowWarning={handleShowWarning}
+        />
+      </ProtectedRoute>
     ),
   },
+
   {
     path: "/admins/new",
     element: (
-      <AddNewAdmin
-        isWarning={isWarning}
-        handleShowWarning={handleShowWarning}
-      />
+      <ProtectedRoute allowedRoles={[SUPER_ADMIN]}>
+        <AddNewAdmin
+          isWarning={isWarning}
+          handleShowWarning={handleShowWarning}
+        />
+      </ProtectedRoute>
     ),
   },
 
   {
     path: "/admins/show/:adminId",
     element: (
-      <ShowAdmin isWarning={isWarning} handleShowWarning={handleShowWarning} />
+      <ProtectedRoute allowedRoles={[SUPER_ADMIN]}>
+        <ShowAdmin
+          isWarning={isWarning}
+          handleShowWarning={handleShowWarning}
+        />
+      </ProtectedRoute>
     ),
   },
   {
-    path: "/admins/:adminId",
+    path: "/users",
     element: (
-      <AddNewAdmin
-        isWarning={isWarning}
-        handleShowWarning={handleShowWarning}
-      />
+      <ProtectedRoute>
+        <AllUsers isWarning={isWarning} handleShowWarning={handleShowWarning} />
+      </ProtectedRoute>
     ),
   },
-  { path: "/profile", element: <AdminProfile /> },
+  {
+    path: "/users/show/:userId",
+    element: (
+      <ProtectedRoute>
+        <ShowUser isWarning={isWarning} handleShowWarning={handleShowWarning} />
+      </ProtectedRoute>
+    ),
+  },
+
+  {
+    path: "/admins/:adminId",
+    element: (
+      <ProtectedRoute allowedRoles={[SUPER_ADMIN]}>
+        <AddNewAdmin
+          isWarning={isWarning}
+          handleShowWarning={handleShowWarning}
+        />
+      </ProtectedRoute>
+    ),
+  },
+  { path: "/profile/:adminId", element: <Profile /> },
   {
     path: "/products/:productId",
     element: (
@@ -84,29 +121,68 @@ const adminRoutes = (isWarning, handleShowWarning) => [
   {
     path: "/categories",
     element: (
-      <Categories isWarning={isWarning} handleShowWarning={handleShowWarning} />
+      <ProtectedRoute allowedRoles={[SUPER_ADMIN]}>
+        <Categories
+          isWarning={isWarning}
+          handleShowWarning={handleShowWarning}
+        />
+      </ProtectedRoute>
     ),
   },
-  { path: "/add-category", element: <AddCategory /> },
-  { path: "/categories/editCategory/:categoryId", element: <AddCategory /> },
-  { path: "/sub-categories/:subCategoryId", element: <AddSubCategory /> },
+  {
+    path: "/add-category",
+    element: (
+      <ProtectedRoute allowedRoles={[SUPER_ADMIN]}>
+        <AddCategory />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/categories/editCategory/:categoryId",
+    element: (
+      <ProtectedRoute allowedRoles={[SUPER_ADMIN]}>
+        <AddCategory />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/sub-categories/:subCategoryId",
+    element: (
+      <ProtectedRoute allowedRoles={[SUPER_ADMIN]}>
+        <AddSubCategory />
+      </ProtectedRoute>
+    ),
+  },
   {
     path: "/sub-categories",
     element: (
-      <SubCategories
-        isWarning={isWarning}
-        handleShowWarning={handleShowWarning}
-      />
+      <ProtectedRoute allowedRoles={[SUPER_ADMIN]}>
+        <SubCategories
+          isWarning={isWarning}
+          handleShowWarning={handleShowWarning}
+        />
+      </ProtectedRoute>
     ),
   },
-  { path: "/add-sub-category", element: <AddSubCategory /> },
+  {
+    path: "/add-sub-category",
+    element: (
+      <ProtectedRoute allowedRoles={[SUPER_ADMIN]}>
+        <AddSubCategory />
+      </ProtectedRoute>
+    ),
+  },
   {
     path: "/seller/:sellerId",
     element: (
       <Seller isWarning={isWarning} handleShowWarning={handleShowWarning} />
     ),
   },
+  {
+    path: "/unauthorized",
+    element: <Unauthorized />,
+  },
   { path: "*", element: <NotFoundPage navigateTo="/" /> },
 ];
 
-export default adminRoutes;
+export default allRoutes;

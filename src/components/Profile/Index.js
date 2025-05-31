@@ -1,6 +1,6 @@
 import {
-  editAdmin,
   editAdminProfile,
+  fetchAdmin,
   fetchSelectedAdminBySuperAdmin,
 } from "@/store/actions/admin/adminActions";
 import React, { useEffect, useState } from "react";
@@ -20,13 +20,11 @@ import { toast } from "react-toastify";
 
 const ShowAdmin = () => {
   const { adminId } = useParams();
-  const { selectedAdminBySuperAdmin, isLoading } = useSelector(
-    (state) => state.adminReducer
-  );
+  const { admin, isLoading } = useSelector((state) => state.adminReducer);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchSelectedAdminBySuperAdmin({ adminId }));
+    dispatch(fetchAdmin({ adminId }));
   }, [adminId, dispatch]);
 
   const [selectedImg, setSelectedImg] = useState({
@@ -45,7 +43,6 @@ const ShowAdmin = () => {
 
   const { locale, formatMessage } = useIntl();
 
-  const navigate = useNavigate();
   const onSubmit = async (data) => {
     data.image = selectedImg?.preview ? selectedImg?.preview : null;
     const cleanedData = { ...data };
@@ -56,9 +53,7 @@ const ShowAdmin = () => {
       delete cleanedData.confirmPassword;
     }
 
-    dispatch(
-      editAdmin({ data: cleanedData, adminId, toast, locale, navigate })
-    );
+    dispatch(editAdminProfile({ data: cleanedData, adminId, toast, locale }));
   };
   const handleImageChange = async (event) => {
     const file = event.target.files[0];
@@ -90,14 +85,14 @@ const ShowAdmin = () => {
     }));
   };
   useEffect(() => {
-    if (selectedAdminBySuperAdmin) {
-      setSelectedImg({ file: null, preview: selectedAdminBySuperAdmin?.image });
-      setValue("firstName", selectedAdminBySuperAdmin?.firstName);
-      setValue("lastName", selectedAdminBySuperAdmin?.lastName);
-      setValue("email", selectedAdminBySuperAdmin?.email);
-      setValue("mobilePhone", selectedAdminBySuperAdmin?.mobilePhone);
+    if (admin) {
+      setSelectedImg({ file: null, preview: admin?.image });
+      setValue("firstName", admin?.firstName);
+      setValue("lastName", admin?.lastName);
+      setValue("email", admin?.email);
+      setValue("mobilePhone", admin?.mobilePhone);
     }
-  }, [selectedAdminBySuperAdmin]);
+  }, [admin]);
 
   const currentPassword = watch("currentPassword");
   const newPassword = watch("newPassword");
@@ -110,10 +105,10 @@ const ShowAdmin = () => {
       <div className="page-header">
         <div className="text">
           <h4 className="page-title">
-            <FormattedMessage id="editAdmin" />
+            <FormattedMessage id="editProfile" />
           </h4>
           <p className="page-description">
-            <FormattedMessage id="editAdminDescription" /> :
+            <FormattedMessage id="editProfileDescription" /> :
           </p>
         </div>
       </div>

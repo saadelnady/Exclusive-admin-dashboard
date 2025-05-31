@@ -8,6 +8,7 @@ import { couponCodeReducer } from "./reducers/couponCodeRdeucer/couponCodeReduce
 import { localeReducer } from "./reducers/languageReducer/languageReducer.js";
 import { thunk } from "redux-thunk";
 import { statisticsReducer } from "./reducers/statisticsReducser/statisticsReducser.js";
+import { userReducer } from "./reducers/userReducer/userReducer.js";
 
 const composeEnhancers =
   typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
@@ -17,6 +18,7 @@ const composeEnhancers =
 const enhancer = composeEnhancers(applyMiddleware(thunk));
 const appReducers = combineReducers({
   adminReducer,
+  userReducer,
   productReducer,
   sellerReducer,
   categoryReducer,

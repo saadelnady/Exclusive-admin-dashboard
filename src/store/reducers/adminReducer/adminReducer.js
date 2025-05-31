@@ -26,6 +26,12 @@ import {
   POST_ADD_ADMIN,
   POST_ADD_ADMIN_SUCCESS,
   POST_ADD_ADMIN_FAIL,
+  GET_SELECTED_ADMIN_By_SUPER_ADMIN,
+  GET_SELECTED_ADMIN_By_SUPER_ADMIN_SUCCESS,
+  GET_SELECTED_ADMIN_By_SUPER_ADMIN_FAIL,
+  PUT_ADMIN,
+  PUT_ADMIN_SUCCESS,
+  PUT_ADMIN_FAIL,
 } from "@/store/actions/admin/actionTypes";
 
 const initialState = {
@@ -34,6 +40,7 @@ const initialState = {
   error: null,
   admin: {},
   admins: [],
+  selectedAdminBySuperAdmin: {},
   message: "",
   total: 0,
   currentPage: 1,
@@ -197,11 +204,13 @@ const adminReducer = (state = initialState, action) => {
     case PUT_ADMIN_PROFILE:
       return {
         ...state,
+        isLoading: true,
       };
     case PUT_ADMIN_PROFILE_SUCCESS:
       return {
         ...state,
-        message: action?.payLoad?.message,
+        isLoading: false,
+        admin: action?.payLoad?.data?.admin,
         error: null,
       };
 
@@ -231,6 +240,48 @@ const adminReducer = (state = initialState, action) => {
       };
 
     case DELETE_ADMIN_FAIL:
+      return {
+        ...state,
+        isLoggedIn: false,
+        isLoading: false,
+        error: action.payLoad,
+      };
+
+    // ====================================================================================================
+    case GET_SELECTED_ADMIN_By_SUPER_ADMIN:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case GET_SELECTED_ADMIN_By_SUPER_ADMIN_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        selectedAdminBySuperAdmin: action?.payLoad,
+        error: null,
+      };
+    case GET_SELECTED_ADMIN_By_SUPER_ADMIN_FAIL:
+      return {
+        ...state,
+        isLoading: false,
+        isLoggedIn: false,
+        error: action.payLoad,
+      };
+    // ====================================================================================================
+    case PUT_ADMIN:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case PUT_ADMIN_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        selectedAdmin: action?.payLoad?.admin,
+        error: null,
+      };
+
+    case PUT_ADMIN_FAIL:
       return {
         ...state,
         isLoggedIn: false,

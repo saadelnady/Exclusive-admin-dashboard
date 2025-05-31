@@ -116,16 +116,16 @@ export const postAddAdmin = ({ data, toast, navigate, locale }) => {
   };
 };
 // ========================================================================================
-export const editAdminProfile = ({ adminId, values, toast }) => {
+export const editAdminProfile = ({ adminId, data, toast, locale }) => {
   return async (dispatch) => {
-    dispatch(actionCreators.putAdminProfile());
+    dispatch(actionCreators.putAdmin());
     try {
-      const response = await putData(`/api/admin/${adminId}`, values);
+      const response = await putData(`/api/admin/${adminId}`, data);
       dispatch(actionCreators.putAdminProfileSuccess(response));
-      showToast(toast, response?.message, "success");
+      showToast(toast, response?.message?.[locale], "success");
     } catch (error) {
       dispatch(actionCreators.putAdminProfileFail(error));
-      showToast(toast, error?.response?.data?.message, "error");
+      showToast(toast, error?.response?.data?.message?.[locale], "error");
     }
   };
 };
@@ -153,6 +153,8 @@ export const fetchAdmins = ({ limit = "", page = "", text = "", locale }) => {
     }
   };
 };
+// ========================================================================================
+
 export const deleteAdmin = ({ adminId, locale, toast }) => {
   return async (dispatch) => {
     dispatch(actionCreators.deleteAdmin());
@@ -164,6 +166,38 @@ export const deleteAdmin = ({ adminId, locale, toast }) => {
     } catch (error) {
       showToast(toast, error?.response?.data?.message?.[locale], "error");
       dispatch(actionCreators.deleteAdminFail(error));
+    }
+  };
+};
+// ========================================================================================
+export const fetchSelectedAdminBySuperAdmin = ({ adminId }) => {
+  return async (dispatch) => {
+    dispatch(actionCreators.getSelectedAdminBySuperAdmin());
+    try {
+      const response = await getData(`/api/admin/${adminId}`);
+      dispatch(
+        actionCreators.getSelectedAdminBySuperAdminSuccess(
+          response?.data?.admin
+        )
+      );
+    } catch (error) {
+      dispatch(actionCreators.getSelectedAdminBySuperAdminFail(error));
+    }
+  };
+};
+// ========================================================================================
+
+export const editAdmin = ({ adminId, data, toast, locale, navigate }) => {
+  return async (dispatch) => {
+    dispatch(actionCreators.putAdmin());
+    try {
+      const response = await putData(`/api/admin/${adminId}`, data);
+      dispatch(actionCreators.putAdminSuccess(response));
+      showToast(toast, response?.message?.[locale], "success");
+      navigate("/admins");
+    } catch (error) {
+      dispatch(actionCreators.putAdminFail(error));
+      showToast(toast, error?.response?.data?.message?.[locale], "error");
     }
   };
 };

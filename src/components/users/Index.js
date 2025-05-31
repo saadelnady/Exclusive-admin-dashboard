@@ -1,4 +1,3 @@
-import { fetchAdmins, deleteAdmin } from "@/store/actions/admin/adminActions";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Table from "../Shared/Table/Index";
@@ -13,25 +12,27 @@ import Pagenation from "../Shared/pagenation/Index";
 import SearchBar from "../Shared/search/Index";
 import { Col, Row } from "react-bootstrap";
 import DeleteIcon from "./assets/images/svgs/ic-delete.svg";
+import { fetchUsers, deleteUser } from "@/store/actions/user/userActions";
+import { handleImageLink } from "@/helpers/checkers";
 
-const AllAdmins = ({ isWarning, handleShowWarning }) => {
-  const { admins, isLoading, total, currentPage, pageSize, totalPages } =
-    useSelector((state) => state.adminReducer);
+const AllUsers = ({ isWarning, handleShowWarning }) => {
+  const { users, isLoading, total, currentPage, pageSize, totalPages } =
+    useSelector((state) => state.userReducer);
   const { locale } = useIntl();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchAdmins({ limit: 10, page: 1 }));
+    dispatch(fetchUsers({ limit: 10, page: 1 }));
   }, [dispatch]);
 
   const handlePageChange = (newPage) => {
     if (newPage !== currentPage) {
-      dispatch(fetchAdmins({ limit: 10, page: newPage }));
+      dispatch(fetchUsers({ limit: 10, page: newPage }));
     }
   };
 
   const [openMenuId, setOpenMenuId] = useState(null);
-  const [selectedAdmin, setSelectedAdmin] = useState(null);
+  const [selectedUser, setSelectedUser] = useState(null);
   const menuRefs = useRef({});
 
   useEffect(() => {
@@ -50,22 +51,22 @@ const AllAdmins = ({ isWarning, handleShowWarning }) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const handleDeleteAdmin = () => {
-    if (!selectedAdmin) return;
+  const handleDeleteUser = () => {
+    if (!selectedUser) return;
     dispatch(
-      deleteAdmin({
-        adminId: selectedAdmin?._id,
+      deleteUser({
+        userId: selectedUser?._id,
         locale,
         toast,
       })
     );
   };
   const searchHandler = (e) => {
-    dispatch(fetchAdmins({ text: e, limit: 10, page: 1, locale }));
+    dispatch(fetchUsers({ text: e, limit: 10, page: 1, locale }));
   };
   const popupInfo = {
     Icon: <DeleteIcon />,
-    message: "delete-admin-message",
+    message: "delete-user-message",
     actionTitle: "delete",
   };
   const cols = [
@@ -83,7 +84,7 @@ const AllAdmins = ({ isWarning, handleShowWarning }) => {
       name: "image",
       render: (row, rowIdx) => (
         <div className="admin-img">
-          <img src={row?.image} alt="admin-img" />
+          <img src={handleImageLink(row?.image)} alt="admin-img" />
         </div>
       ),
     },
@@ -132,7 +133,7 @@ const AllAdmins = ({ isWarning, handleShowWarning }) => {
           </button>
           {openMenuId === row?._id && (
             <div className="custom-dropdown">
-              <NavLink to={`/admins/show/${row._id}`}>
+              <NavLink to={`/users/show/${row._id}`}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
@@ -155,7 +156,7 @@ const AllAdmins = ({ isWarning, handleShowWarning }) => {
               <button
                 onClick={() => {
                   handleShowWarning();
-                  setSelectedAdmin(row);
+                  setSelectedUser(row);
                 }}
               >
                 <DeleteIcon />
@@ -170,38 +171,38 @@ const AllAdmins = ({ isWarning, handleShowWarning }) => {
 
   if (isLoading) {
     return (
-      <div className={`page ${styles.admins}`}>
+      <div className={`page ${styles.users}`}>
         <Loading />
       </div>
     );
   }
 
   return (
-    <div className={`page ${styles.admins}`}>
+    <div className={`page ${styles.users}`}>
       <div className="page-header">
         <Row>
           <Col xs={12} md={6}>
             <div className="text">
               <h4 className="page-title">
-                <FormattedMessage id="admins" />
+                <FormattedMessage id="usersTitle" />
               </h4>
               <p className="page-description">
-                <FormattedMessage id="adminsDescription" />
+                <FormattedMessage id="usersDescription" />
               </p>
             </div>
           </Col>
-          <Col xs={12} md={4}>
-            <NavLink to="/admins/new">
+          {/* <Col xs={12} md={4}>
+            <NavLink to="/users/new">
               + <FormattedMessage id="add-admin" />
             </NavLink>
-          </Col>
+          </Col> */}
           <Col xs={12} lg={5} className="me-auto">
             <SearchBar searchHandler={searchHandler} />
           </Col>
         </Row>
       </div>
-      <Table cols={cols} rows={admins} />
-      {admins?.length > 0 && totalPages > 1 && (
+      <Table cols={cols} rows={users} />
+      {users?.length > 0 && totalPages > 1 && (
         <Pagenation
           currentPage={currentPage}
           totalPages={totalPages}
@@ -211,7 +212,7 @@ const AllAdmins = ({ isWarning, handleShowWarning }) => {
       {isWarning && (
         <Warning
           handleShowWarning={handleShowWarning}
-          actionHandler={handleDeleteAdmin}
+          actionHandler={handleDeleteUser}
           popupInfo={popupInfo}
         />
       )}
@@ -219,4 +220,4 @@ const AllAdmins = ({ isWarning, handleShowWarning }) => {
   );
 };
 
-export default AllAdmins;
+export default AllUsers;

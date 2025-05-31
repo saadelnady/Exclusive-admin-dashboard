@@ -10,11 +10,11 @@ import AdminSideBar from "./sidebar";
 import AdminHeader from "./header";
 
 import styles from "./styles.module.scss";
-import adminRoutes from "./routes.js";
+import allRoutes from "./routes.js";
 
 const Admin = () => {
   const [isWarning, setIsWarning] = useState(false);
-  const token = localStorage.getItem("TOKEN");
+
   const handleShowWarning = () => {
     setIsWarning(!isWarning);
   };
@@ -25,9 +25,6 @@ const Admin = () => {
     setIsActive(!isActive);
   };
   // =================================================================================
-  useEffect(() => {
-    dispatch(fetchAdminProfile());
-  }, [dispatch]);
 
   return (
     <div className={`${styles["admin-layout"]}`}>
@@ -39,7 +36,7 @@ const Admin = () => {
         <AdminHeader handleSidebarActivation={handleSidebarActivation} />
         <div className="pages">
           <Routes>
-            {adminRoutes(isWarning, handleShowWarning).map((route, index) => (
+            {allRoutes(isWarning, handleShowWarning).map((route, index) => (
               <Route key={index} path={route.path} element={route.element} />
             ))}
           </Routes>
