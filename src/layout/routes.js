@@ -14,7 +14,7 @@ import ShowAdmin from "@/components/admins/showAdmin.js";
 import Home from "@/components/Home/Index.js";
 import Profile from "@/components/Profile/Index.js";
 import ProtectedRoute from "./ProtectedRoute.js";
-import { ADMIN, SUPER_ADMIN } from "../helpers/roles.js";
+import { SUPER_ADMIN } from "../helpers/roles.js";
 import Unauthorized from "@/components/Shared/UnAuthorized/Index.js";
 import ShowUser from "@/components/users/showUser.js";
 import AllUsers from "@/components/users";

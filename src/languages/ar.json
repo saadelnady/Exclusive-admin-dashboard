@@ -55,5 +55,18 @@
   "delete-user-message": "هل تريد حذف هذا المستخدم؟",
   "#": "#",
   "usersTitle": "جميع المستخدمين",
-  "usersDescription": "قائمة جميع المستخدمين في الموقع"
+  "usersDescription": "قائمة جميع المستخدمين في الموقع",
+  "userDetailsTitle": "تفاصيل المستخدم",
+  "userDetailsDescription": "يعرض الجدول جميع بيانات المستخدم",
+  "address": "العنوان",
+  "createdAt": "تم انشائه في",
+  "updatedAt": "تم التعديل في",
+  "isBlocked": "محظور ؟",
+  "yes": "نعم",
+  "no": "لا",
+  "blockReason": "سبب الحظر",
+  "block": "حظر",
+  "unblock": "الغاء الحظر",
+  "blockUser": "حظر المستخدم",
+  "min-length": "يجب ان يكون على الاقل 5 حروف"
 }

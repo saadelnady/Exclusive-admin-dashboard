@@ -1,9 +1,6 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchAdminProfile,
-  fetchAdmins,
-} from "../store/actions/admin/adminActions.js";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+
 import { Route, Routes } from "react-router-dom";
 
 import AdminSideBar from "./sidebar";

@@ -1,360 +1,197 @@
-import {
-  editAdmin,
-  editAdminProfile,
-  fetchSelectedAdminBySuperAdmin,
-} from "@/store/actions/admin/adminActions";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import Loading from "../Shared/loading";
 import { FormattedMessage, useIntl } from "react-intl";
-import { useForm } from "react-hook-form";
 import styles from "./styles/styles.module.scss";
-import { Col, Row } from "react-bootstrap";
-import UploadImg from "../Shared/uploadImg/Index";
-import IcEye from "./assets/images/svgs/ic-eye.svg";
-import IcEyeSlash from "./assets/images/svgs/ic-eyeslash.svg";
-import IcError from "./assets/images/svgs/ic-error.svg";
-import { postData } from "@/API/API";
-import { toast } from "react-toastify";
 
+import { editUser, fetchUser } from "@/store/actions/user/userActions";
+import { userStatus } from "@/helpers/roles";
+import { handleImageLink } from "@/helpers/checkers";
+import { toast } from "react-toastify";
+import BlockUserModal from "./blockUserModal";
 const ShowUser = () => {
-  const { adminId } = useParams();
-  const { selectedAdminBySuperAdmin, isLoading } = useSelector(
-    (state) => state.adminReducer
-  );
+  const { userId } = useParams();
+  const { user, isLoading } = useSelector((state) => state.userReducer);
+  const { locale } = useIntl();
+  const navigate = useNavigate();
+
+  const [show, setShow] = useState(false);
   const dispatch = useDispatch();
+  const handleClose = () => setShow(false);
 
   useEffect(() => {
-    dispatch(fetchSelectedAdminBySuperAdmin({ adminId }));
-  }, [adminId, dispatch]);
+    dispatch(fetchUser({ userId }));
+  }, [userId, dispatch]);
 
-  const [selectedImg, setSelectedImg] = useState({
-    file: null,
-    preview: null,
-  });
-
-  const {
-    register,
-    handleSubmit,
-    getValues,
-    setValue,
-    formState: { errors },
-    watch,
-  } = useForm();
-
-  const { locale, formatMessage } = useIntl();
-
-  const navigate = useNavigate();
-  const onSubmit = async (data) => {
-    data.image = selectedImg?.preview ? selectedImg?.preview : null;
-    const cleanedData = { ...data };
-
-    if (!data.currentPassword && !data.newPassword && !data.confirmPassword) {
-      delete cleanedData.currentPassword;
-      delete cleanedData.newPassword;
-      delete cleanedData.confirmPassword;
+  const handleBlockUser = (status) => {
+    if (status === "block") {
+      setShow(true);
+    } else {
+      dispatch(
+        editUser({
+          userId,
+          data: {
+            status: userStatus?.VERIFIED,
+            blockReason: "",
+          },
+          toast,
+          locale,
+          navigate,
+        })
+      );
     }
-
+  };
+  const onSubmit = (data) => {
     dispatch(
-      editAdmin({ data: cleanedData, adminId, toast, locale, navigate })
+      editUser({
+        userId,
+        data: {
+          status: userStatus?.BLOCKED,
+          blockReason: data?.blockReason,
+        },
+        toast,
+        locale,
+        navigate,
+      })
     );
   };
-  const handleImageChange = async (event) => {
-    const file = event.target.files[0];
-    const formData = new FormData();
-    formData.append("files", file);
-
-    try {
-      const uploadImgResponse = await postData("/api/upload", formData);
-
-      setSelectedImg({ file, preview: uploadImgResponse?.files?.[0]?.url });
-    } catch (error) {
-      console.log("error", error);
-    }
-  };
-  const handleRemoveImg = () => {
-    if (selectedImg?.preview || selectedImg?.file) {
-      setSelectedImg({ file: null, preview: null });
-    }
-  };
-  const [showPassword, setShowPassword] = useState({
-    current: false,
-    new: false,
-    confirm: false,
-  });
-  const togglePassword = (field) => {
-    setShowPassword((prev) => ({
-      ...prev,
-      [field]: !prev[field],
-    }));
-  };
-  useEffect(() => {
-    if (selectedAdminBySuperAdmin) {
-      setSelectedImg({ file: null, preview: selectedAdminBySuperAdmin?.image });
-      setValue("firstName", selectedAdminBySuperAdmin?.firstName);
-      setValue("lastName", selectedAdminBySuperAdmin?.lastName);
-      setValue("email", selectedAdminBySuperAdmin?.email);
-      setValue("mobilePhone", selectedAdminBySuperAdmin?.mobilePhone);
-    }
-  }, [selectedAdminBySuperAdmin]);
-
-  const currentPassword = watch("currentPassword");
-  const newPassword = watch("newPassword");
-  const confirmPassword = watch("confirmPassword");
-
   if (isLoading) return <Loading />;
-
   return (
-    <div className={`page ${styles.addNewAdmin}`}>
+    <div className={`page ${styles.user}`}>
       <div className="page-header">
         <div className="text">
           <h4 className="page-title">
-            <FormattedMessage id="editAdmin" />
+            <FormattedMessage id="userDetailsTitle" />
           </h4>
           <p className="page-description">
-            <FormattedMessage id="editAdminDescription" /> :
+            <FormattedMessage id="userDetailsDescription" />
           </p>
         </div>
       </div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Row>
-          <Col xs={12}>
-            <UploadImg
-              handleImageChange={handleImageChange}
-              selectedImg={selectedImg}
-              handleRemoveImg={handleRemoveImg}
-              register={register}
-              errors={errors}
-            />
-          </Col>
-          <Col xs={12} md={6}>
-            <div className="input-wrapper">
-              <label className="label" htmlFor="firstName">
-                {formatMessage({ id: "firstName" })} :
-              </label>
-              <input
-                id="firstName"
-                {...register("firstName", {
-                  required: formatMessage({ id: "required" }),
-                  minLength: {
-                    value: 3,
-                    message: formatMessage({ id: "name-min-length" }),
-                  },
-                  maxLength: {
-                    value: 20,
-                    message: formatMessage({ id: "name-max-length" }),
-                  },
-                })}
-                className="special-input"
-              />
-              {errors.firstName && (
-                <p className="error">
-                  <IcError />
-                  {errors.firstName.message}
-                </p>
-              )}
-            </div>
-          </Col>
-          <Col xs={12} md={6}>
-            <div className="input-wrapper">
-              <label className="label" htmlFor="lastName">
-                {formatMessage({ id: "lastName" })} :
-              </label>
+      <div className="table-wrapper">
+        <table className="custom-table">
+          <tbody>
+            <tr>
+              <th>
+                <FormattedMessage id="image" />
+              </th>
+              <td>
+                <img
+                  src={handleImageLink(user?.image || "")}
+                  alt="User"
+                  width="80"
+                />
+              </td>
+            </tr>
+            <tr>
+              <th>
+                <FormattedMessage id="name" />
+              </th>
+              <td>{`${user?.firstName} ${user?.lastName}`} </td>
+            </tr>
 
-              <input
-                id="lastName"
-                {...register("lastName", {
-                  required: formatMessage({ id: "required" }),
-                  minLength: {
-                    value: 3,
-                    message: formatMessage({ id: "name-min-length" }),
-                  },
-                  maxLength: {
-                    value: 20,
-                    message: formatMessage({ id: "name-max-length" }),
-                  },
-                })}
-                className="special-input"
-              />
-              {errors.lastName && (
-                <p className="error">
-                  <IcError />
-                  {errors.lastName.message}
-                </p>
-              )}
-            </div>
-          </Col>
-          <Col xs={12} md={6}>
-            <div className="input-wrapper">
-              <label className="label" htmlFor="email">
-                {formatMessage({ id: "email" })} :
-              </label>
+            <tr>
+              <th>
+                <FormattedMessage id="email" />
+              </th>
+              <td>{user?.email}</td>
+            </tr>
+            <tr>
+              <th>
+                <FormattedMessage id="phone" />
+              </th>
+              <td>{user?.mobilePhone}</td>
+            </tr>
+            <tr>
+              <th>
+                <FormattedMessage id="address" />
+              </th>
+              <td>{user?.address || "-"}</td>
+            </tr>
 
-              <input
-                id="email"
-                type="email"
-                autoComplete="email"
-                className="special-input"
-                {...register("email", {
-                  required: formatMessage({ id: "required" }),
-                  pattern: {
-                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                    message: formatMessage({ id: "invalid-email" }),
-                  },
+            <tr>
+              <th>
+                <FormattedMessage id="isBlocked" />
+              </th>
+              <td>
+                {user?.status === userStatus.BLOCKED ? (
+                  <div className="d-flex align-items-center gap-5">
+                    <FormattedMessage id="yes" />
+                    <button
+                      className="btn block-btn"
+                      type="button"
+                      onClick={() => handleBlockUser("unblock")}
+                    >
+                      <FormattedMessage id="unblock" />
+                    </button>
+                  </div>
+                ) : (
+                  <div className="d-flex align-items-center gap-5">
+                    <FormattedMessage id="no" />
+                    <button
+                      className="btn block-btn"
+                      type="button"
+                      onClick={() => {
+                        handleBlockUser("block");
+                      }}
+                    >
+                      <FormattedMessage id="block" />
+                    </button>
+                  </div>
+                )}
+              </td>
+            </tr>
+            {user?.blockReason && user?.status === userStatus.BLOCKED && (
+              <tr>
+                <th>
+                  <FormattedMessage id="blockReason" />
+                </th>
+                <td>{user?.blockReason || "-"}</td>
+              </tr>
+            )}
+            <tr>
+              <th>
+                <FormattedMessage id="createdAt" />
+              </th>
+              <td>
+                {new Date(user?.createdAt).toLocaleDateString("ar-EG", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
                 })}
-              />
-              {errors.email && (
-                <p className="error">
-                  <IcError />
-                  {errors.email.message}
-                </p>
-              )}
-            </div>
-          </Col>
-          <Col xs={12} md={6}>
-            <div className="input-wrapper">
-              <label className="label" htmlFor="mobilePhone">
-                {formatMessage({ id: "mobilePhone" })} :
-              </label>
-              <input
-                id="mobilePhone"
-                {...register("mobilePhone", {
-                  required: formatMessage({ id: "required" }),
-                  pattern: {
-                    value: /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/g,
-                    message: formatMessage({ id: "invalid-mobilePhone" }),
-                  },
+                {" - "}
+                {new Date(user?.createdAt).toLocaleTimeString("ar-EG", {
+                  hour: "2-digit",
+                  minute: "2-digit",
                 })}
-                className="special-input"
-                type="tel"
-                dir="ltr"
-              />
-              {errors.mobilePhone && (
-                <p className="error">
-                  <IcError />
-                  {errors.mobilePhone.message}
-                </p>
-              )}
-            </div>
-          </Col>
-
-          <Col xs={12} md={6}>
-            <div className="input-wrapper">
-              <label className="label" htmlFor="currentPassword">
-                {formatMessage({ id: "currentPassword" })} :
-              </label>
-              <input
-                id="currentPassword"
-                {...register("currentPassword", {
-                  validate: (value) => {
-                    if ((newPassword || confirmPassword) && !value) {
-                      return formatMessage({ id: "required" });
-                    }
-                    if (value && value.length < 9) {
-                      return formatMessage({ id: "password-length" });
-                    }
-                    return true;
-                  },
+              </td>
+            </tr>
+            <tr>
+              <th>
+                <FormattedMessage id="updatedAt" />
+              </th>
+              <td>
+                {new Date(user?.updatedAt).toLocaleDateString("ar-EG", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
                 })}
-                className="special-input"
-                type={showPassword.current ? "text" : "password"}
-              />
-              <button
-                className="icon"
-                type="button"
-                onClick={() => togglePassword("current")}
-              >
-                {showPassword.current ? <IcEyeSlash /> : <IcEye />}
-              </button>
-              {errors.currentPassword && (
-                <p className="error">
-                  <IcError />
-                  {errors.currentPassword.message}
-                </p>
-              )}
-            </div>
-          </Col>
-          <Col xs={12} md={6}>
-            <div className="input-wrapper">
-              <label className="label" htmlFor="newPassword">
-                {formatMessage({ id: "newPassword" })} :
-              </label>
-              <input
-                {...register("newPassword", {
-                  validate: (value) => {
-                    if ((currentPassword || confirmPassword) && !value) {
-                      return formatMessage({ id: "required" });
-                    }
-                    if (value && value.length < 9) {
-                      return formatMessage({ id: "password-length" });
-                    }
-                    return true;
-                  },
+                {" - "}
+                {new Date(user?.updatedAt).toLocaleTimeString("ar-EG", {
+                  hour: "2-digit",
+                  minute: "2-digit",
                 })}
-                className="special-input"
-                type={showPassword.new ? "text" : "password"}
-              />
-              <button
-                className="icon"
-                type="button"
-                onClick={() => togglePassword("new")}
-              >
-                {showPassword.new ? <IcEyeSlash /> : <IcEye />}
-              </button>
-              {errors.newPassword && (
-                <p className="error">
-                  <IcError />
-                  {errors.newPassword.message}
-                </p>
-              )}
-            </div>
-          </Col>
-          <Col xs={12} md={6}>
-            <div className="input-wrapper">
-              <label className="label" htmlFor="confirmPassword">
-                {formatMessage({ id: "confirmPassword" })} :
-              </label>
-              <input
-                id="confirmPassword"
-                {...register("confirmPassword", {
-                  validate: (value) => {
-                    if ((currentPassword || newPassword) && !value) {
-                      return formatMessage({ id: "required" });
-                    }
-                    if (value && value.length < 9) {
-                      return formatMessage({ id: "password-length" });
-                    }
-                    if (value && value !== newPassword) {
-                      return formatMessage({ id: "password-not-match" });
-                    }
-                    return true;
-                  },
-                })}
-                className="special-input"
-                type={showPassword.confirm ? "text" : "password"}
-              />
-              <button
-                className="icon"
-                type="button"
-                onClick={() => togglePassword("confirm")}
-              >
-                {showPassword.confirm ? <IcEyeSlash /> : <IcEye />}
-              </button>
-              {errors.confirmPassword && (
-                <p className="error">
-                  <IcError />
-                  {errors.confirmPassword.message}
-                </p>
-              )}
-            </div>
-          </Col>
-        </Row>
-
-        <button type="submit" className="btn submit">
-          {formatMessage({ id: "editAdmin" })}
-        </button>
-      </form>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <BlockUserModal
+        show={show}
+        handleClose={handleClose}
+        onSubmit={onSubmit}
+      />
     </div>
   );
 };

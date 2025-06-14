@@ -55,5 +55,18 @@
   "delete-user-message": "Do you want to delete this user?",
   "#": "#",
   "usersTitle": "All Users",
-  "usersDescription": "List of all site users"
+  "usersDescription": "List of all site users",
+  "userDetailsTitle": "User Details",
+  "userDetailsDescription": "The table displays all user information",
+  "address": "Address",
+  "createdAt": "Created At",
+  "updatedAt": "Last Updated",
+  "isBlocked": "Blocked?",
+  "yes": "Yes",
+  "no": "No",
+  "blockReason": "Block Reason",
+  "block": "Block",
+  "unblock": "Unblock",
+  "blockUser": "Block User",
+  "min-length": "The field must be at least 5 characters"
 }

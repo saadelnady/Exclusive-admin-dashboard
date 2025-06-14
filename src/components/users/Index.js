@@ -16,8 +16,9 @@ import { fetchUsers, deleteUser } from "@/store/actions/user/userActions";
 import { handleImageLink } from "@/helpers/checkers";
 
 const AllUsers = ({ isWarning, handleShowWarning }) => {
-  const { users, isLoading, total, currentPage, pageSize, totalPages } =
-    useSelector((state) => state.userReducer);
+  const { users, isLoading, currentPage, totalPages } = useSelector(
+    (state) => state.userReducer
+  );
   const { locale } = useIntl();
   const dispatch = useDispatch();
 
@@ -83,7 +84,7 @@ const AllUsers = ({ isWarning, handleShowWarning }) => {
       label: "image",
       name: "image",
       render: (row, rowIdx) => (
-        <div className="admin-img">
+        <div className="user-img">
           <img src={handleImageLink(row?.image)} alt="admin-img" />
         </div>
       ),
@@ -153,7 +154,7 @@ const AllUsers = ({ isWarning, handleShowWarning }) => {
                 <FormattedMessage id="view" />
               </NavLink>
 
-              <button
+              {/* <button
                 onClick={() => {
                   handleShowWarning();
                   setSelectedUser(row);
@@ -161,7 +162,7 @@ const AllUsers = ({ isWarning, handleShowWarning }) => {
               >
                 <DeleteIcon />
                 <FormattedMessage id="delete" />
-              </button>
+              </button> */}
             </div>
           )}
         </div>

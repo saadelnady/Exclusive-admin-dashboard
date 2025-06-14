@@ -33,7 +33,7 @@ export const fetchUser = ({ userId }) => {
     dispatch(actionCreators.getUser());
     try {
       const response = await getData(`/api/users/${userId}`);
-      dispatch(actionCreators.getUsersSuccess(response?.data?.admin));
+      dispatch(actionCreators.getUserSuccess(response?.data?.user));
     } catch (error) {
       dispatch(actionCreators.getUserFail(error));
     }
